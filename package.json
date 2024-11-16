@@ -1,0 +1,57 @@
+{
+  "name": "launch-ide",
+  "version": "1.0.0-beta.0",
+  "main": "dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "repository": "git@github.com:zh-lx/launch-ide.git",
+  "author": "zh-lx <18366276315@163.com>",
+  "license": "MIT",
+  "homepage": "https://inspector.fe-dev.cn/guide/ide.html",
+  "description": "Automatically recognize the editor by running processes and open the specified file in it.",
+  "keywords": [
+    "launch",
+    "editor",
+    "open",
+    "ide",
+    "recognize",
+    "open-file"
+  ],
+  "bugs": {
+    "url": "https://github.com/zh-lx/launch-ide/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "pnpm clear && tsc && vite build",
+    "clear": "rimraf ./dist && rimraf ./types",
+    "pub": "pnpm publish",
+    "pub:beta": "pnpm publish --tag beta"
+  },
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "dotenv": "^16.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^4.9.3",
+    "vite": "^4.3.9",
+    "vite-plugin-node-stdlib-browser": "^0.2.1"
+  }
+}
