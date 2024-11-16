@@ -231,3 +231,4 @@ export function launchIDE(params: LaunchIDEParams) {
 }
 
 export * from './type';
+export { formatOpenPath } from './get-args';

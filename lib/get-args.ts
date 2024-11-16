@@ -11,7 +11,7 @@ interface GetEditorFormatParams {
 const FormatFile = "{file}";
 const FormatLine = "{line}";
 const FormatColumn = "{column}";
-function formatOpenPath(
+export function formatOpenPath(
   file: string,
   line: string | number,
   column: string | number,

@@ -1,6 +1,6 @@
 {
   "name": "launch-ide",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "./dist/index.mjs",
   "types": "types/index.d.ts",
@@ -23,7 +23,7 @@
   "repository": "git@github.com:zh-lx/launch-ide.git",
   "author": "zh-lx <18366276315@163.com>",
   "license": "MIT",
-  "homepage": "https://inspector.fe-dev.cn/guide/ide.html",
+  "homepage": "https://github.com/zh-lx/launch-ide#README.md",
   "description": "Automatically recognize the editor by running processes and open the specified file in it.",
   "keywords": [
     "launch",
