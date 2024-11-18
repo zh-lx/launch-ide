@@ -246,6 +246,13 @@ interface LaunchIDEParams {
         <td></td>
         <td>✅</td>
     </tr>
+    <tr>
+        <td><a href="https://zed.dev/" target="_blank">Zed</a></td>
+        <td>zed</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td></td>
+    </tr>
 </table>
 
 ## ✍️ Custom editor
