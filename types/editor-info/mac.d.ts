@@ -1,6 +1,7 @@
 import { EDITOR_PROCESS_MAP } from '../type';
 export declare const COMMON_EDITORS_OSX: {
     '/Cursor.app/Contents/MacOS/Cursor': string;
+    '/Windsurf.app/Contents/MacOS/Electron': string;
     '/Visual Studio Code.app/Contents/MacOS/Electron': string;
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron': string;
     '/VSCodium.app/Contents/MacOS/Electron': string;

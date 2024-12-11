@@ -106,6 +106,7 @@ function getFormatByEditor(params: GetEditorFormatParams) {
     case 'code - insiders':
     case 'codium':
     case 'cursor':
+    case 'windsurf':
     case 'vscodium':
     case 'hbuilderx':
     case 'hbuilder':

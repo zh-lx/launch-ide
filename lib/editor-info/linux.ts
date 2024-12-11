@@ -3,6 +3,7 @@ import { EDITOR_PROCESS_MAP } from "../type";
 // 有顺序优先级
 export const COMMON_EDITORS_LINUX = {
   cursor: 'cursor',
+  windsurf: 'windsurf',
   code: 'code',
   vscodium: 'vscodium',
   codium: 'codium',
@@ -36,6 +37,7 @@ export const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP = {
   'code-insiders': ['code-insiders'],
   webstorm: ['webstorm.sh'],
   cursor: ['cursor'],
+  windsurf: ['windsurf'],
   atom: ['atom'],
   hbuilder: ['hbuilderx'],
   phpstorm: ['phpstorm.sh'],
