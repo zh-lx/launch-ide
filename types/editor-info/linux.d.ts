@@ -1,6 +1,7 @@
 import { EDITOR_PROCESS_MAP } from "../type";
 export declare const COMMON_EDITORS_LINUX: {
     cursor: string;
+    windsurf: string;
     code: string;
     vscodium: string;
     codium: string;

@@ -10,7 +10,7 @@ There are already some tools to open the file in the editor, but `launch-ide` ha
 
 - Automatically recognize the editor by running processes, you don't need to configure the editor path.
 - Launch the ide by the executable file of the editor, so you don't need to install the command line tools of the editor such as `code`.
-- Support for more editors such as VSCode, Cursor, WebStorm, etc.
+- Support for more editors such as VSCode, Cursor, Windsurf, WebStorm, etc.
 - Compatible with platforms such as Windows, MacOS, and Linux.
 - Compatible for Chinese characters in the file path.
 
@@ -116,6 +116,13 @@ interface LaunchIDEParams {
     <tr>
         <td><a href="https://www.cursor.com/" target="_blank">Cursor</a></td>
         <td>cursor</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="https://codeium.com/windsurf" target="_blank">Windsurf</a></td>
+        <td>windsurf</td>
         <td>✅</td>
         <td>✅</td>
         <td></td>

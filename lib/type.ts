@@ -20,6 +20,7 @@ export type Editor =
   | 'sublime'
   | 'vim'
   | 'webstorm'
+  | 'windsurf'
   | 'zed';
 
 
