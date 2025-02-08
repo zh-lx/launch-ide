@@ -15,6 +15,7 @@ export type Editor =
   | 'notepad'
   | 'phpstorm'
   | 'pycharm'
+  | 'trae'
   | 'rider'
   | 'rubymine'
   | 'sublime'
