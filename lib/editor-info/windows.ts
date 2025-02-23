@@ -4,6 +4,7 @@ import { EDITOR_PROCESS_MAP } from "../type";
 export const COMMON_EDITORS_WIN: { [key: string]: string } = {
   'Cursor.exe': '',
   'Windsurf.exe': '',
+  'Trae.exe': '',
   'Code.exe': '',
   'Code - Insiders.exe': '',
   'VSCodium.exe': '',
@@ -39,6 +40,7 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   webstorm: ['webstorm.exe', 'webstorm64.exe'],
   cursor: ['Cursor.exe'],
   windsurf: ['Windsurf.exe'],
+  trae: ['Trae.exe'],
   atom: ['atom.exe'],
   hbuilder: ['HBuilderX.exe', 'HBuilder.exe', 'HBuilderX64.exe', 'HBuilder64.exe'],
   phpstorm: ['phpstorm.exe', 'phpstorm64.exe'],
