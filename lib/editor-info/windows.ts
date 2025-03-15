@@ -5,6 +5,7 @@ export const COMMON_EDITORS_WIN: { [key: string]: string } = {
   'Cursor.exe': '',
   'Windsurf.exe': '',
   'Trae.exe': '',
+  'Trae CN.exe': '',
   'Code.exe': '',
   'Code - Insiders.exe': '',
   'VSCodium.exe': '',
