@@ -4,6 +4,7 @@ export declare const COMMON_EDITORS_OSX: {
     '/Windsurf.app/Contents/MacOS/Electron': string;
     '/Visual Studio Code.app/Contents/MacOS/Electron': string;
     '/Trae.app/Contents/MacOS/Electron': string;
+    '/Trae CN.app/Contents/MacOS/Electron': string;
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron': string;
     '/VSCodium.app/Contents/MacOS/Electron': string;
     '/WebStorm.app/Contents/MacOS/webstorm': string;

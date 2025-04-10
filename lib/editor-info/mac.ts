@@ -6,6 +6,7 @@ export const COMMON_EDITORS_OSX = {
   '/Windsurf.app/Contents/MacOS/Electron': '/Windsurf.app/Contents/MacOS/Electron',
   '/Visual Studio Code.app/Contents/MacOS/Electron': '/Visual Studio Code.app/Contents/MacOS/Electron',
   '/Trae.app/Contents/MacOS/Electron': '/Trae.app/Contents/MacOS/Electron',
+  '/Trae CN.app/Contents/MacOS/Electron': '/Trae CN.app/Contents/MacOS/Electron',
   '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron': '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
   '/VSCodium.app/Contents/MacOS/Electron': '/VSCodium.app/Contents/MacOS/Electron',
   '/WebStorm.app/Contents/MacOS/webstorm':
@@ -52,7 +53,7 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
   webstorm: ['/WebStorm.app/Contents/MacOS/webstorm'],
   cursor: ['/Cursor.app/Contents/MacOS/Cursor'],
   windsurf: ['/Windsurf.app/Contents/MacOS/Electron'],
-  trae: ['/Trae.app/Contents/MacOS/Electron'],
+  trae: ['/Trae.app/Contents/MacOS/Electron', '/Trae CN.app/Contents/MacOS/Electron'],
   atom: ['/Atom.app/Contents/MacOS/Atom'],
   hbuilder: ['/HBuilderX.app/Contents/MacOS/HBuilderX'],
   phpstorm: ['/PhpStorm.app/Contents/MacOS/phpstorm'],
