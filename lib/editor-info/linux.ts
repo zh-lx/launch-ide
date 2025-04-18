@@ -1,4 +1,4 @@
-import { EDITOR_PROCESS_MAP } from "../type";
+import { EDITOR_PROCESS_MAP } from '../type';
 
 // 有顺序优先级
 export const COMMON_EDITORS_LINUX = {
@@ -35,20 +35,20 @@ export const COMMON_EDITORS_LINUX = {
 export const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP = {
   code: ['code'],
   'code-insiders': ['code-insiders'],
-  webstorm: ['webstorm.sh'],
+  webstorm: ['webstorm', 'webstorm.sh'],
   cursor: ['cursor'],
   windsurf: ['windsurf'],
   atom: ['atom'],
-  hbuilder: ['hbuilderx'],
-  phpstorm: ['phpstorm.sh'],
-  pycharm: ['pycharm.sh'],
-  idea: ['idea.sh'],
+  hbuilder: ['hbuilderx', 'hbuilderx.sh'],
+  phpstorm: ['phpstorm', 'phpstorm.sh'],
+  pycharm: ['pycharm', 'pycharm.sh'],
+  idea: ['idea', 'idea.sh'],
   codium: ['vscodium'],
   goland: ['goland'],
   brackets: ['Brackets'],
   rider: ['rider'],
-  rubymine: ['rubymine.sh'],
+  rubymine: ['rubymine', 'rubymine.sh'],
   sublime: ['sublime_text'],
   vim: ['vim'],
   emacs: ['emacs'],
-}
+};
