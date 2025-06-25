@@ -6,7 +6,7 @@ import { Platform, Editor } from './type';
 import { COMMON_EDITOR_PROCESS_MAP, COMMON_EDITORS_MAP } from './editor-info';
 
 const ProcessExecutionMap = {
-  darwin: path.join(__dirname, 'get-visible-proceses-mac.sh'),
+  darwin: "ps ax -o pcpu,comm | awk '$1 > 0 { print $2 }'",
   linux: 'ps -eo comm --sort=comm',
   // wmic's performance is better, but window11 not build in
   win32: 'wmic process where "executablepath is not null" get executablepath',
@@ -64,14 +64,7 @@ export function guessEditor(_editor?: Editor) {
 
     let output = '';
     try {
-      if (platform === 'darwin') {
-        // Execute the shell script for macOS
-        output = child_process.execSync(`bash "${execution}"`, {
-          encoding: 'utf-8',
-        });
-      } else {
-        output = child_process.execSync(execution, { encoding: 'utf-8' });
-      }
+      output = child_process.execSync(execution, { encoding: 'utf-8' });
     } catch (error) {
       if (isWin32) {
         output = child_process.execSync(winExecBackup, { encoding: 'utf-8' });
@@ -81,8 +74,7 @@ export function guessEditor(_editor?: Editor) {
     const editorNames = Object.keys(commonEditors);
     const runningProcesses = output
       .split(isWin32 ? '\r\n' : '\n')
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0);
+      .map((item) => item.trim());
 
     for (let i = 0; i < editorNames.length; i++) {
       const editorName = editorNames[i] as keyof typeof commonEditors;
