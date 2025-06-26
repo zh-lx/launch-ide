@@ -6,7 +6,7 @@ import { Platform, Editor } from './type';
 import { COMMON_EDITOR_PROCESS_MAP, COMMON_EDITORS_MAP } from './editor-info';
 
 const ProcessExecutionMap = {
-  darwin: "ps ax -o pcpu,comm | awk '$1 > 0 { print $2 }'",
+  darwin: `ps ax -o %mem=,comm= | awk '$1 > 0 {$1=""; print substr($0,2)}'`,
   linux: 'ps -eo comm --sort=comm',
   // wmic's performance is better, but window11 not build in
   win32: 'wmic process where "executablepath is not null" get executablepath',
