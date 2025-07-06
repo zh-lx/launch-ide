@@ -250,7 +250,7 @@ function getWindowsProcessInfoWmic(pid: number): ProcessInfo | null {
     compatibleWithChineseCharacter(true);
 
     const processInfo = child_process.execSync(
-      `wmic process where "ProcessId=${pid}" get ParentProcessId,Name /format:csv`,
+      `wmic process where "ProcessId=${pid}" get ParentProcessId,ExecutablePath /format:csv`,
       { encoding: 'utf8' }
     );
     const lines = processInfo
@@ -261,7 +261,7 @@ function getWindowsProcessInfoWmic(pid: number): ProcessInfo | null {
 
     if (lines.length === 0) return null;
 
-    // Node,Name,ParentProcessId
+    // Node,ExecutablePath,ParentProcessId
     const parts = lines[0].split(',');
     if (parts.length < 3) return null;
 
@@ -281,7 +281,7 @@ function getWindowsProcessInfoPowerShell(pid: number): ProcessInfo | null {
     compatibleWithChineseCharacter(true);
 
     const processInfo = child_process.execSync(
-      `powershell -NoProfile -Command "Get-CimInstance -Query \"select ParentProcessId,Name from win32_process where ProcessId=${pid}\" | ForEach-Object { $_.Name + ',' + $_.ParentProcessId }"`,
+      `powershell -NoProfile -Command "Get-CimInstance -Query \"select ParentProcessId,ExecutablePath from win32_process where ProcessId=${pid}\" | ForEach-Object { $_.ExecutablePath + ',' + $_.ParentProcessId }"`,
       { encoding: 'utf8' }
     );
     const line = processInfo.trim();
