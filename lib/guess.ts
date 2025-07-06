@@ -16,7 +16,7 @@ const ProcessExecutionMap = {
 const winExecBackup =
   'powershell -NoProfile -Command "Get-CimInstance -Query \\"select executablepath from win32_process where executablepath is not null\\" | % { $_.ExecutablePath }"';
 
-export function guessEditor(_editor?: Editor) {
+export function guessEditor(_editor?: Editor): Array<string | null> {
   let customEditors: string[] | null = null;
 
   // webpack
@@ -49,6 +49,12 @@ export function guessEditor(_editor?: Editor) {
     if (editor) {
       customEditors = editor;
     }
+  }
+
+  // Try to get editor from PID tracing first
+  const editorFromPid = getEditorCommandByPid();
+  if (editorFromPid && !customEditors) {
+    return [editorFromPid];
   }
 
   try {
@@ -162,3 +168,155 @@ const compatibleWithChineseCharacter = (isWin32: boolean): void => {
     }
   }
 };
+
+// Normally, we start the service via a command in the IDE's terminal,
+// so we can trace up from the current PID to find the IDE that launched this service.
+function getEditorCommandByPid(): string | null {
+  const platform = process.platform as 'darwin' | 'linux' | 'win32';
+  const commonEditorKeys = Object.keys(COMMON_EDITORS_MAP[platform]);
+
+  try {
+    return traceProcessTree(process.pid, platform, commonEditorKeys);
+  } catch (error) {
+    console.error('Error while getting editor by PID:', error);
+    return null;
+  }
+}
+
+function traceProcessTree(
+  startPid: number,
+  platform: string,
+  commonEditorKeys: string[]
+): string | null {
+  let currentPid = startPid;
+  let depth = 0;
+  const MAX_DEPTH = 50; // Prevent infinite loops
+  const ROOT_PID = 0;
+
+  while (currentPid && currentPid !== ROOT_PID && depth < MAX_DEPTH) {
+    const processInfo = getProcessInfo(currentPid, platform);
+    if (!processInfo) break;
+
+    const { command, parentPid } = processInfo;
+
+    if (isKnownEditor(command, commonEditorKeys)) {
+      return command;
+    }
+
+    currentPid = parentPid;
+    depth++;
+  }
+
+  return null;
+}
+
+// Get process info based on platform
+function getProcessInfo(pid: number, platform: string): ProcessInfo | null {
+  switch (platform) {
+    case 'darwin':
+    case 'linux':
+      return getUnixProcessInfo(pid);
+    case 'win32':
+      return getWindowsProcessInfo(pid);
+    default:
+      return null;
+  }
+}
+
+// Get process info for Unix-like systems (macOS and Linux)
+function getUnixProcessInfo(pid: number): ProcessInfo | null {
+  try {
+    const processInfo = child_process.execSync(`ps -p ${pid} -o ppid=,comm=`, {
+      encoding: 'utf8',
+    });
+    const lines = processInfo.trim().split('\n');
+    if (!lines.length) return null;
+
+    return parseUnixProcessLine(lines[0].trim());
+  } catch {
+    return null;
+  }
+}
+
+// Get process info for Windows (with fallback)
+function getWindowsProcessInfo(pid: number): ProcessInfo | null {
+  return getWindowsProcessInfoWmic(pid) || getWindowsProcessInfoPowerShell(pid);
+}
+
+// Get process info for Windows using wmic
+function getWindowsProcessInfoWmic(pid: number): ProcessInfo | null {
+  try {
+    // Ensure UTF-8 encoding for Chinese character compatibility
+    compatibleWithChineseCharacter(true);
+
+    const processInfo = child_process.execSync(
+      `wmic process where "ProcessId=${pid}" get ParentProcessId,Name /format:csv`,
+      { encoding: 'utf8' }
+    );
+    const lines = processInfo
+      .trim()
+      .split('\r\n')
+      .filter((line) => line.trim()) // Remove empty lines
+      .slice(1); // Skip the first line (CSV header)
+
+    if (lines.length === 0) return null;
+
+    // Node,Name,ParentProcessId
+    const parts = lines[0].split(',');
+    if (parts.length < 3) return null;
+
+    return {
+      command: parts[1].trim(),
+      parentPid: parseInt(parts[2].trim()),
+    };
+  } catch {
+    return null;
+  }
+}
+
+// Get process info for Windows using PowerShell
+function getWindowsProcessInfoPowerShell(pid: number): ProcessInfo | null {
+  try {
+    // Ensure UTF-8 encoding for Chinese character compatibility
+    compatibleWithChineseCharacter(true);
+
+    const processInfo = child_process.execSync(
+      `powershell -NoProfile -Command "Get-CimInstance -Query \"select ParentProcessId,Name from win32_process where ProcessId=${pid}\" | ForEach-Object { $_.Name + ',' + $_.ParentProcessId }"`,
+      { encoding: 'utf8' }
+    );
+    const line = processInfo.trim();
+    if (!line) return null;
+
+    const parts = line.split(',');
+    if (parts.length < 2) return null;
+
+    return {
+      command: parts[0].trim(),
+      parentPid: parseInt(parts[1].trim()),
+    };
+  } catch {
+    return null;
+  }
+}
+
+// Process information interface
+interface ProcessInfo {
+  command: string;
+  parentPid: number;
+}
+
+// Parse process line for Unix-like systems (macOS and Linux)
+function parseUnixProcessLine(processLine: string): ProcessInfo | null {
+  const match = processLine.match(/^(\d+)\s+(.+)$/);
+  if (!match) return null;
+
+  return {
+    command: match[2],
+    parentPid: parseInt(match[1]),
+  };
+}
+
+// Check if command matches any known editor
+function isKnownEditor(command: string, commonEditorKeys: string[]): boolean {
+  return commonEditorKeys.some((key) => command.endsWith(key));
+}
