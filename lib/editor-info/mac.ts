@@ -3,6 +3,8 @@ import { EDITOR_PROCESS_MAP } from '../type';
 // 有顺序优先级
 export const COMMON_EDITORS_OSX = {
   '/Cursor.app/Contents/MacOS/Cursor': '/Cursor.app/Contents/MacOS/Cursor',
+  '/Comate.app/Contents/MacOS/Electron':
+    '/Comate.app/Contents/MacOS/Electron',
   '/Windsurf.app/Contents/MacOS/Electron':
     '/Windsurf.app/Contents/MacOS/Electron',
   '/Trae.app/Contents/MacOS/Electron': '/Trae.app/Contents/MacOS/Electron',
