@@ -6,6 +6,7 @@ export type Editor =
   | 'code'
   | 'code-insiders'
   | 'codium'
+  | 'comate'
   | 'cursor'
   | 'colin'
   | 'emacs'
