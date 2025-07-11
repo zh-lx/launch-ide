@@ -3,8 +3,7 @@ import { EDITOR_PROCESS_MAP } from '../type';
 // 有顺序优先级
 export const COMMON_EDITORS_OSX = {
   '/Cursor.app/Contents/MacOS/Cursor': '/Cursor.app/Contents/MacOS/Cursor',
-  '/Comate.app/Contents/MacOS/Electron':
-    '/Comate.app/Contents/MacOS/Electron',
+  '/Comate.app/Contents/MacOS/Electron': '/Comate.app/Contents/MacOS/Electron',
   '/Windsurf.app/Contents/MacOS/Electron':
     '/Windsurf.app/Contents/MacOS/Electron',
   '/Trae.app/Contents/MacOS/Electron': '/Trae.app/Contents/MacOS/Electron',
@@ -54,17 +53,18 @@ export const COMMON_EDITORS_OSX = {
 };
 
 export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
-  code: ['/Visual Studio Code.app/Contents/MacOS/Electron'],
-  'code-insiders': [
-    '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
-  ],
-  webstorm: ['/WebStorm.app/Contents/MacOS/webstorm'],
   cursor: ['/Cursor.app/Contents/MacOS/Cursor'],
+  comate: ['/Comate.app/Contents/MacOS/Electron'],
   windsurf: ['/Windsurf.app/Contents/MacOS/Electron'],
   trae: [
     '/Trae.app/Contents/MacOS/Electron',
     '/Trae CN.app/Contents/MacOS/Electron',
   ],
+  code: ['/Visual Studio Code.app/Contents/MacOS/Electron'],
+  'code-insiders': [
+    '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
+  ],
+  webstorm: ['/WebStorm.app/Contents/MacOS/webstorm'],
   atom: ['/Atom.app/Contents/MacOS/Atom'],
   hbuilder: ['/HBuilderX.app/Contents/MacOS/HBuilderX'],
   phpstorm: ['/PhpStorm.app/Contents/MacOS/phpstorm'],

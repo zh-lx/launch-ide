@@ -84,7 +84,8 @@ export function guessEditor(_editor?: Editor) {
       // 检测当前 editorName 是否正在运行
       if (isWin32) {
         const processPath = runningProcesses.find(
-          (_process) => path.basename(_process) === editorName
+          (_process) =>
+            path.basename(_process).toLowerCase() === editorName.toLowerCase()
         );
         if (processPath) {
           runningEditor = path.basename(processPath);
@@ -92,7 +93,7 @@ export function guessEditor(_editor?: Editor) {
         }
       } else if (platform === 'darwin') {
         const runningProcess = runningProcesses.find((_process) =>
-          _process.endsWith(editorName)
+          _process.toLowerCase().endsWith(editorName.toLowerCase())
         );
         // 命中了 IDE
         if (runningProcess) {

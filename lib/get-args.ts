@@ -8,9 +8,9 @@ interface GetEditorFormatParams {
   workspace?: string | null;
 }
 
-const FormatFile = "{file}";
-const FormatLine = "{line}";
-const FormatColumn = "{column}";
+const FormatFile = '{file}';
+const FormatLine = '{line}';
+const FormatColumn = '{column}';
 export function formatOpenPath(
   file: string,
   line: string | number,
@@ -36,15 +36,23 @@ export function formatOpenPath(
 
 // 入口函数：获取打开 IDE 所需要的参数
 export function getArguments(params: {
-  processName: string,
-  fileName: string,
-  lineNumber: string | number,
-  colNumber: string | number,
-  workspace: string | null,
-  openWindowParams: string,
-  pathFormat?: string | string[]
+  processName: string;
+  fileName: string;
+  lineNumber: string | number;
+  colNumber: string | number;
+  workspace: string | null;
+  openWindowParams: string;
+  pathFormat?: string | string[];
 }): string[] {
-  const { processName, fileName, lineNumber, colNumber, workspace, openWindowParams, pathFormat } = params;
+  const {
+    processName,
+    fileName,
+    lineNumber,
+    colNumber,
+    workspace,
+    openWindowParams,
+    pathFormat,
+  } = params;
   const editorBasename = getEditorBasenameByProcessName(processName);
   const _params = { editorBasename, openWindowParams, workspace };
 
@@ -56,13 +64,16 @@ export function getArguments(params: {
 
 // 根据进程名获取 editor 的 basename
 function getEditorBasenameByProcessName(processName: string) {
-  let editorBasename = path.basename(processName).replace(/\.(exe|cmd|bat|sh)$/i, '');
+  let editorBasename = path
+    .basename(processName)
+    .replace(/\.(exe|cmd|bat|sh)$/i, '');
 
   const platform = process.platform as Platform;
   const editorBasenames = Object.keys(COMMON_EDITOR_PROCESS_MAP[platform]);
   for (let i = 0; i < editorBasenames.length; i++) {
-    const editorPaths = COMMON_EDITOR_PROCESS_MAP[platform][editorBasenames[i] as Editor] || [];
-    if (editorPaths.some(editorPath => processName.endsWith(editorPath))) {
+    const editorPaths =
+      COMMON_EDITOR_PROCESS_MAP[platform][editorBasenames[i] as Editor] || [];
+    if (editorPaths.some((editorPath) => processName.endsWith(editorPath))) {
       editorBasename = editorBasenames[i];
       break;
     }
@@ -71,11 +82,10 @@ function getEditorBasenameByProcessName(processName: string) {
   return editorBasename.toLowerCase();
 }
 
-
 // 已知 editor，返回对应 format
 function getFormatByEditor(params: GetEditorFormatParams) {
   const { editorBasename, openWindowParams, workspace } = params;
-  
+
   switch (editorBasename) {
     case 'atom':
     case 'atom beta':
@@ -90,7 +100,7 @@ function getFormatByEditor(params: GetEditorFormatParams) {
       return ['-n' + FormatLine, '-c' + FormatColumn, FormatFile];
     case 'vim':
     case 'mvim':
-      return [`+call cursor(${FormatLine}, ${FormatColumn})`, FormatFile]
+      return [`+call cursor(${FormatLine}, ${FormatColumn})`, FormatFile];
     case 'joe':
     case 'gvim':
       return ['+' + FormatLine, FormatFile];
@@ -108,6 +118,7 @@ function getFormatByEditor(params: GetEditorFormatParams) {
     case 'cursor':
     case 'windsurf':
     case 'trae':
+    case 'comate':
     case 'vscodium':
     case 'hbuilderx':
     case 'hbuilder':
