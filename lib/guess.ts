@@ -52,9 +52,11 @@ export function guessEditor(_editor?: Editor): Array<string | null> {
   }
 
   // Try to get editor from PID tracing first
-  const editorFromPid = getEditorCommandByPid();
-  if (editorFromPid && !customEditors) {
-    return [editorFromPid];
+  if (!customEditors) {
+    const editorFromPid = getEditorCommandByPid();
+    if (editorFromPid) {
+      return [editorFromPid];
+    }
   }
 
   try {
@@ -170,13 +172,13 @@ const compatibleWithChineseCharacter = (isWin32: boolean): void => {
 };
 
 // Normally, we start the service via a command in the IDE's terminal,
-// so we can trace up from the current PID to find the IDE that launched this service.
+// So we can trace up from the current PID to find the IDE that launched this service.
 function getEditorCommandByPid(): string | null {
-  const platform = process.platform as 'darwin' | 'linux' | 'win32';
-  const commonEditorKeys = Object.keys(COMMON_EDITORS_MAP[platform]);
+  const platform = process.platform as Platform;
+  const editorNames = Object.keys(COMMON_EDITORS_MAP[platform]);
 
   try {
-    return traceProcessTree(process.pid, platform, commonEditorKeys);
+    return traceProcessTree(process.pid, platform, editorNames);
   } catch (error) {
     console.error('Error while getting editor by PID:', error);
     return null;
@@ -184,26 +186,26 @@ function getEditorCommandByPid(): string | null {
 }
 
 function traceProcessTree(
-  startPid: number,
-  platform: string,
-  commonEditorKeys: string[]
+  pid: number,
+  platform: Platform,
+  editorNames: string[]
 ): string | null {
-  let currentPid = startPid;
   let depth = 0;
   const MAX_DEPTH = 50; // Prevent infinite loops
   const ROOT_PID = 0;
 
-  while (currentPid && currentPid !== ROOT_PID && depth < MAX_DEPTH) {
-    const processInfo = getProcessInfo(currentPid, platform);
+  while (pid && pid !== ROOT_PID && depth < MAX_DEPTH) {
+    const processInfo = getProcessInfo(pid, platform);
+
     if (!processInfo) break;
 
     const { command, parentPid } = processInfo;
 
-    if (isKnownEditor(command, commonEditorKeys)) {
+    if (isKnownEditor(command, editorNames)) {
       return command;
     }
 
-    currentPid = parentPid;
+    pid = parentPid;
     depth++;
   }
 
@@ -211,7 +213,7 @@ function traceProcessTree(
 }
 
 // Get process info based on platform
-function getProcessInfo(pid: number, platform: string): ProcessInfo | null {
+function getProcessInfo(pid: number, platform: Platform): ProcessInfo | null {
   switch (platform) {
     case 'darwin':
     case 'linux':
@@ -229,6 +231,7 @@ function getUnixProcessInfo(pid: number): ProcessInfo | null {
     const processInfo = child_process.execSync(`ps -p ${pid} -o ppid=,comm=`, {
       encoding: 'utf8',
     });
+
     const lines = processInfo.trim().split('\n');
     if (!lines.length) return null;
 
@@ -316,7 +319,8 @@ function parseUnixProcessLine(processLine: string): ProcessInfo | null {
   };
 }
 
-// Check if command matches any known editor
-function isKnownEditor(command: string, commonEditorKeys: string[]): boolean {
-  return commonEditorKeys.some((key) => command.endsWith(key));
+function isKnownEditor(command: string, editorNames: string[]): boolean {
+  return editorNames.some((editorName) =>
+    command.toLowerCase().endsWith(editorName.toLowerCase())
+  );
 }
