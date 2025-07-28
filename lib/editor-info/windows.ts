@@ -1,4 +1,4 @@
-import { EDITOR_PROCESS_MAP } from "../type";
+import { EDITOR_PROCESS_MAP } from '../type';
 
 // 有顺序优先级
 export const COMMON_EDITORS_WIN: { [key: string]: string } = {
@@ -7,6 +7,7 @@ export const COMMON_EDITORS_WIN: { [key: string]: string } = {
   'Trae.exe': '',
   'Trae CN.exe': '',
   'comate.exe': '',
+  'CodeBuddy.exe': '',
   'Code.exe': '',
   'Code - Insiders.exe': '',
   'VSCodium.exe': '',
@@ -44,8 +45,14 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   windsurf: ['Windsurf.exe'],
   trae: ['Trae.exe', 'Trae CN.exe'],
   comate: ['comate.exe'],
+  codebuddy: ['CodeBuddy.exe'],
   atom: ['atom.exe'],
-  hbuilder: ['HBuilderX.exe', 'HBuilder.exe', 'HBuilderX64.exe', 'HBuilder64.exe'],
+  hbuilder: [
+    'HBuilderX.exe',
+    'HBuilder.exe',
+    'HBuilderX64.exe',
+    'HBuilder64.exe',
+  ],
   phpstorm: ['phpstorm.exe', 'phpstorm64.exe'],
   pycharm: ['pycharm.exe', 'pycharm64.exe'],
   idea: ['idea.exe', 'idea64.exe'],
@@ -57,4 +64,4 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   rubymine: ['rubymine.exe', 'rubymine64.exe'],
   sublime: ['sublime_text.exe'],
   notepad: ['notepad++.exe'],
-}
+};
