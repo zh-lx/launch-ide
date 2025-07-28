@@ -135,6 +135,20 @@ interface LaunchIDEParams {
         <td></td>
     </tr>
     <tr>
+        <td><a href="https://www.codebuddy.ai/" target="_blank">CodeBuddy</a></td>
+        <td>codebuddy</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="https://comate.baidu.com/" target="_blank">comate</a></td>
+        <td>comate</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td></td>
+    </tr>
+    <tr>
         <td><a href="https://insiders.vscode.dev/" target="_blank">Visual Studio Code - Insiders</a></td>
         <td>code-insiders</td>
         <td>✅</td>

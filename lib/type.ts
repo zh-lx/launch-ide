@@ -5,6 +5,7 @@ export type Editor =
   | 'brackets'
   | 'code'
   | 'code-insiders'
+  | 'codebuddy'
   | 'codium'
   | 'comate'
   | 'cursor'
@@ -25,9 +26,8 @@ export type Editor =
   | 'windsurf'
   | 'zed';
 
-
 export type Platform = 'darwin' | 'linux' | 'win32';
 export type EDITOR_PROCESS_MAP = {
   [key in Editor]?: string[];
-}
+};
 export type IDEOpenMethod = 'reuse' | 'new' | 'auto';

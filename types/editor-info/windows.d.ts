@@ -1,4 +1,4 @@
-import { EDITOR_PROCESS_MAP } from "../type";
+import { EDITOR_PROCESS_MAP } from '../type';
 export declare const COMMON_EDITORS_WIN: {
     [key: string]: string;
 };
