@@ -1,3 +1,7 @@
+## 1.0.9 2025-07-28
+
+- 🎉: Support CodeBuddy AI [#13](https://github.com/zh-lx/launch-ide/pull/13)
+
 ## 1.0.8 2025-07-12
 
 - 🎉: Support Comate AI [#11](https://github.com/zh-lx/launch-ide/pull/11)
