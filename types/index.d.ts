@@ -12,3 +12,4 @@ interface LaunchIDEParams {
 export declare function launchIDE(params: LaunchIDEParams): void;
 export * from './type';
 export { formatOpenPath } from './get-args';
+export { getEnvVariable } from './utils';

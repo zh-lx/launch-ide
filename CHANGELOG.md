@@ -1,6 +1,6 @@
 ## 1.1.0 2025-07-30
 
-- 🎉: Get the path of `.env.local` from the root directory [#15](https://github.com/zh-lx/launch-ide/pull/15)
+- 🎉: Get the path of `.env.local` from the root directory [46ac037f](https://github.com/zh-lx/launch-ide/commit/46ac037f8fef89a8ee912dab9be44ad885cb3fa3)
 
 ## 1.0.9 2025-07-28
 
