@@ -1,3 +1,7 @@
+## 1.1.0 2025-07-30
+
+- 🎉: Get the path of `.env.local` from the root directory [#15](https://github.com/zh-lx/launch-ide/pull/15)
+
 ## 1.0.9 2025-07-28
 
 - 🎉: Support CodeBuddy AI [#13](https://github.com/zh-lx/launch-ide/pull/13)

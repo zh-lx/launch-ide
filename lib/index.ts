@@ -3,10 +3,10 @@ import path from 'path';
 import child_process from 'child_process';
 import os from 'os';
 import chalk from 'chalk';
-import dotenv from 'dotenv';
 import { Editor, IDEOpenMethod } from './type';
 import { getArguments } from './get-args';
 import { guessEditor } from './guess';
+import { getEnvVariable } from './utils';
 
 function isTerminalEditor(editor: string) {
   switch (editor) {
@@ -18,27 +18,16 @@ function isTerminalEditor(editor: string) {
   return false;
 }
 
-function getEnvFormatPath() {
-  // webpack
-  if (process.env.CODE_INSPECTOR_FORMAT_PATH) {
+function getEnvFormatPath(rootDir: string) {
+  const codeInspectorFormatPath = getEnvVariable(
+    'CODE_INSPECTOR_FORMAT_PATH',
+    rootDir
+  );
+  if (codeInspectorFormatPath) {
     try {
-      return JSON.parse(process.env.CODE_INSPECTOR_FORMAT_PATH);
+      return JSON.parse(codeInspectorFormatPath);
     } catch (error) {
       return null;
-    }
-  }
-
-  // vite
-  const envPath = path.resolve(process.cwd(), '.env.local');
-  if (fs.existsSync(envPath)) {
-    const envFile = fs.readFileSync(envPath, 'utf-8');
-    const envConfig = dotenv.parse(envFile || '');
-    if (envConfig.CODE_INSPECTOR_FORMAT_PATH) {
-      try {
-        return JSON.parse(envConfig.CODE_INSPECTOR_FORMAT_PATH);
-      } catch (error) {
-        return null;
-      }
     }
   }
 
@@ -100,18 +89,28 @@ interface LaunchIDEParams {
   method?: IDEOpenMethod;
   format?: string | string[];
   onError?: (file: string, error: string) => void;
+  rootDir?: string;
 }
 
 export function launchIDE(params: LaunchIDEParams) {
-  let { file, line = 1, column = 1, editor: _editor, method, format, onError } = params;
+  let {
+    file,
+    line = 1,
+    column = 1,
+    editor: _editor,
+    method,
+    format,
+    onError,
+    rootDir,
+  } = params;
   if (!fs.existsSync(file)) {
     return;
   }
 
-  let [editor, ...args] = guessEditor(_editor);
+  let [editor, ...args] = guessEditor(_editor, rootDir);
 
   // 获取 path format
-  const pathFormat = getEnvFormatPath() || format;
+  const pathFormat = getEnvFormatPath(rootDir || '') || format;
 
   if (!editor || editor.toLowerCase() === 'none') {
     if (typeof onError === 'function') {
@@ -119,15 +118,15 @@ export function launchIDE(params: LaunchIDEParams) {
     } else {
       console.log(
         'Failed to recognize IDE automatically, add something like ' +
-        chalk.cyan('CODE_EDITOR=code') +
-        ' to the ' +
-        chalk.green('.env.local') +
-        ' file in your project folder,' +
-        ' or add ' +
-        chalk.green('editor: "code"') +
-        ' to CodeInspectorPlugin config, ' +
-        'and then restart the development server. Learn more: ' +
-        chalk.green('https://goo.gl/MMTaZt')
+          chalk.cyan('CODE_EDITOR=code') +
+          ' to the ' +
+          chalk.green('.env.local') +
+          ' file in your project folder,' +
+          ' or add ' +
+          chalk.green('editor: "code"') +
+          ' to CodeInspectorPlugin config, ' +
+          'and then restart the development server. Learn more: ' +
+          chalk.green('https://goo.gl/MMTaZt')
       );
     }
     return;

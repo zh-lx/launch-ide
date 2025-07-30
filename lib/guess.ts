@@ -1,9 +1,8 @@
-import fs from 'fs';
 import path from 'path';
 import child_process from 'child_process';
-import dotenv from 'dotenv';
 import { Platform, Editor } from './type';
 import { COMMON_EDITOR_PROCESS_MAP, COMMON_EDITORS_MAP } from './editor-info';
+import { getEnvVariable } from './utils';
 
 const ProcessExecutionMap = {
   darwin: 'ps ax -o comm=',
@@ -16,35 +15,23 @@ const ProcessExecutionMap = {
 const winExecBackup =
   'powershell -NoProfile -Command "Get-CimInstance -Query \\"select executablepath from win32_process where executablepath is not null\\" | % { $_.ExecutablePath }"';
 
-export function guessEditor(_editor?: Editor): Array<string | null> {
+export function guessEditor(
+  _editor?: Editor,
+  rootDir?: string
+): Array<string | null> {
   let customEditors: string[] | null = null;
 
-  // webpack
-  if (process.env.CODE_EDITOR) {
-    const editor = getEditorByCustom(process.env.CODE_EDITOR as any);
+  const codeEditor = getEnvVariable('CODE_EDITOR', rootDir || '');
+  if (codeEditor) {
+    const editor = getEditorByCustom(codeEditor as any);
     if (editor) {
       customEditors = editor;
     } else {
-      return [process.env.CODE_EDITOR];
+      return [codeEditor];
     }
   }
 
-  // vite
-  const envPath = path.resolve(process.cwd(), '.env.local');
-  if (fs.existsSync(envPath) && !customEditors) {
-    const envFile = fs.readFileSync(envPath, 'utf-8');
-    const envConfig = dotenv.parse(envFile || '');
-    if (envConfig.CODE_EDITOR) {
-      const editor = getEditorByCustom(envConfig.CODE_EDITOR as any);
-      if (editor) {
-        customEditors = editor;
-      } else {
-        return [envConfig.CODE_EDITOR];
-      }
-    }
-  }
-
-  if (_editor && !customEditors) {
+  if (!customEditors && _editor) {
     const editor = getEditorByCustom(_editor);
     if (editor) {
       customEditors = editor;

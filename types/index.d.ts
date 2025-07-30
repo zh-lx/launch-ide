@@ -7,6 +7,7 @@ interface LaunchIDEParams {
     method?: IDEOpenMethod;
     format?: string | string[];
     onError?: (file: string, error: string) => void;
+    rootDir?: string;
 }
 export declare function launchIDE(params: LaunchIDEParams): void;
 export * from './type';
