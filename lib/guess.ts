@@ -2,18 +2,17 @@ import path from 'path';
 import child_process from 'child_process';
 import { Platform, Editor } from './type';
 import { COMMON_EDITOR_PROCESS_MAP, COMMON_EDITORS_MAP } from './editor-info';
-import { getEnvVariable } from './utils';
+import { commandExists, getEnvVariable } from './utils';
+import chalk from 'chalk';
 
 const ProcessExecutionMap = {
   darwin: 'ps ax -o comm=',
   linux: 'ps -eo comm --sort=comm',
   // wmic's performance is better, but window11 not build in
-  win32: 'wmic process where "executablepath is not null" get executablepath',
+  win32: commandExists('wmic')
+    ? 'wmic process where "executablepath is not null" get executablepath'
+    : 'powershell -NoProfile -Command "Get-CimInstance -Query \\"select executablepath from win32_process where executablepath is not null\\" | % { $_.ExecutablePath }"',
 };
-
-// powershell's compatibility is better
-const winExecBackup =
-  'powershell -NoProfile -Command "Get-CimInstance -Query \\"select executablepath from win32_process where executablepath is not null\\" | % { $_.ExecutablePath }"';
 
 export function guessEditor(
   _editor?: Editor,
@@ -57,14 +56,7 @@ export function guessEditor(
 
     compatibleWithChineseCharacter(isWin32);
 
-    let output = '';
-    try {
-      output = child_process.execSync(execution, { encoding: 'utf-8' });
-    } catch (error) {
-      if (isWin32) {
-        output = child_process.execSync(winExecBackup, { encoding: 'utf-8' });
-      }
-    }
+    const output = child_process.execSync(execution, { encoding: 'utf-8' });
 
     const editorNames = Object.keys(commonEditors);
     const runningProcesses = output
@@ -168,7 +160,7 @@ function getEditorCommandByPid(): string | null {
   try {
     return traceProcessTree(process.pid, platform, editorNames);
   } catch (error) {
-    console.error('Error while getting editor by PID:', error);
+    console.log(chalk.red('Error while getting editor by PID:'), error);
     return null;
   }
 }
@@ -229,21 +221,19 @@ function getUnixProcessInfo(pid: number): ProcessInfo | null {
   }
 }
 
-// Get process info for Windows (with fallback)
+// Get process info for Windows
 function getWindowsProcessInfo(pid: number): ProcessInfo | null {
-  return getWindowsProcessInfoWmic(pid) || getWindowsProcessInfoPowerShell(pid);
-}
-
-// Get process info for Windows using wmic
-function getWindowsProcessInfoWmic(pid: number): ProcessInfo | null {
   try {
     // Ensure UTF-8 encoding for Chinese character compatibility
     compatibleWithChineseCharacter(true);
 
-    const processInfo = child_process.execSync(
-      `wmic process where "ProcessId=${pid}" get ParentProcessId,ExecutablePath /format:csv`,
-      { encoding: 'utf8' }
-    );
+    const execCommand = commandExists('wmic')
+      ? `wmic process where "ProcessId=${pid}" get ParentProcessId,ExecutablePath /format:csv`
+      : `powershell -NoProfile -Command "Get-CimInstance -Query \"select ParentProcessId,ExecutablePath from win32_process where ProcessId=${pid}\" | ForEach-Object { $_.ExecutablePath + ',' + $_.ParentProcessId }"`;
+
+    const processInfo = child_process.execSync(execCommand, {
+      encoding: 'utf8',
+    });
     const lines = processInfo
       .trim()
       .split('\r\n')
@@ -259,31 +249,6 @@ function getWindowsProcessInfoWmic(pid: number): ProcessInfo | null {
     return {
       command: parts[1].trim(),
       parentPid: parseInt(parts[2].trim()),
-    };
-  } catch {
-    return null;
-  }
-}
-
-// Get process info for Windows using PowerShell
-function getWindowsProcessInfoPowerShell(pid: number): ProcessInfo | null {
-  try {
-    // Ensure UTF-8 encoding for Chinese character compatibility
-    compatibleWithChineseCharacter(true);
-
-    const processInfo = child_process.execSync(
-      `powershell -NoProfile -Command "Get-CimInstance -Query \"select ParentProcessId,ExecutablePath from win32_process where ProcessId=${pid}\" | ForEach-Object { $_.ExecutablePath + ',' + $_.ParentProcessId }"`,
-      { encoding: 'utf8' }
-    );
-    const line = processInfo.trim();
-    if (!line) return null;
-
-    const parts = line.split(',');
-    if (parts.length < 2) return null;
-
-    return {
-      command: parts[0].trim(),
-      parentPid: parseInt(parts[1].trim()),
     };
   } catch {
     return null;

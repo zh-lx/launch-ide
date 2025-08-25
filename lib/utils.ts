@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
+import { execSync } from 'child_process';
 
 export function getEnvVariable(
   variable: string,
@@ -33,4 +34,25 @@ export function getEnvVariable(
   }
 
   return null;
+}
+
+/**
+ * check if command exists
+ * @param {string} command - the command to check
+ * @returns {boolean} true if command exists, false otherwise
+ */
+export function commandExists(command: string): boolean {
+  try {
+    // Use 'which' command on Unix-like systems (Linux, macOS)
+    // Use 'where' command on Windows
+    const platform = process.platform;
+    const checkCommand = platform === 'win32' ? 'where' : 'which';
+
+    const result = execSync(`${checkCommand} ${command}`, {
+      encoding: 'utf-8',
+    });
+    return !!result;
+  } catch (error) {
+    return false;
+  }
 }
