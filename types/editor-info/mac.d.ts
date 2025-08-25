@@ -2,6 +2,7 @@ import { EDITOR_PROCESS_MAP } from '../type';
 export declare const COMMON_EDITORS_OSX: {
     '/Cursor.app/Contents/MacOS/Cursor': string;
     '/Comate.app/Contents/MacOS/Electron': string;
+    '/Qoder.app/Contents/MacOS/Electron': string;
     '/Windsurf.app/Contents/MacOS/Electron': string;
     '/Trae.app/Contents/MacOS/Electron': string;
     '/Trae CN.app/Contents/MacOS/Electron': string;
