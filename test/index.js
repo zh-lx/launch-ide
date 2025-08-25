@@ -1,4 +1,4 @@
-import { launchIDE } from '../dist/index.mjs';
+const { launchIDE } = require('../dist/index.js');
 
 launchIDE({
   file: '/Users/zhoulixiang/Desktop/github/launch-ide/lib/get-args.ts',
