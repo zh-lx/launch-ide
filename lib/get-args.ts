@@ -120,6 +120,7 @@ function getFormatByEditor(params: GetEditorFormatParams) {
     case 'trae':
     case 'codebuddy':
     case 'comate':
+    case 'qoder':
     case 'vscodium':
     case 'hbuilderx':
     case 'hbuilder':

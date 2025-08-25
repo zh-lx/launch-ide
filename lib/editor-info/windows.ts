@@ -7,6 +7,7 @@ export const COMMON_EDITORS_WIN: { [key: string]: string } = {
   'Trae.exe': '',
   'Trae CN.exe': '',
   'comate.exe': '',
+  'Qoder.exe': '',
   'CodeBuddy.exe': '',
   'Code.exe': '',
   'Code - Insiders.exe': '',
@@ -45,6 +46,7 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   windsurf: ['Windsurf.exe'],
   trae: ['Trae.exe', 'Trae CN.exe'],
   comate: ['comate.exe'],
+  qoder: ['Qoder.exe'],
   codebuddy: ['CodeBuddy.exe'],
   atom: ['atom.exe'],
   hbuilder: [
