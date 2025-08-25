@@ -190,7 +190,7 @@ export function launchIDE(params: LaunchIDEParams) {
       .join(' ');
 
     _childProcess = child_process.exec(launchCommand, {
-      stdio: 'inherit',
+      stdio: 'ignore',
       // @ts-ignore
       shell: true,
       env: {
@@ -200,7 +200,7 @@ export function launchIDE(params: LaunchIDEParams) {
     });
   } else {
     _childProcess = child_process.spawn(editor, args as string[], {
-      stdio: 'inherit',
+      stdio: 'ignore',
       env: {
         ...process.env,
         NODE_OPTIONS: '',
