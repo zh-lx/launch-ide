@@ -1,3 +1,10 @@
+## 1.2.0 2025-08-26
+
+- 🎉: Improve the performance of guessing editor [#18](https://github.com/zh-lx/launch-ide/pull/18)
+- 🎉: Completely replace `wmic` with `powershell` on Windows [#18](https://github.com/zh-lx/launch-ide/pull/18)
+- 🎉: Support Qoder [#16](https://github.com/zh-lx/launch-ide/pull/16)
+- 🎉: Remove unnecessary console info for some editor [#17](https://github.com/zh-lx/launch-ide/pull/17)
+
 ## 1.1.1 2025-07-31
 
 - 🎉: Export `getEnvVariable` function [#15](https://github.com/zh-lx/launch-ide/pull/15)

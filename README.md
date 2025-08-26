@@ -91,6 +91,14 @@ interface LaunchIDEParams {
    * @description: callback function when an error occurs
    */
   onError?: (file: string, error: string) => void;
+
+  /**
+   * @optional
+   * @type: string
+   * @description: Whether to guess the editor by the process id. When you use pid, the accuracy of the editor is higher, but the performance is lower.
+   * @default false
+   */
+  usePid?: boolean;
 }
 ```
 
@@ -130,6 +138,13 @@ interface LaunchIDEParams {
     <tr>
         <td><a href="https://www.trae.ai/" target="_blank">Trae</a></td>
         <td>trae</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="https://qoder.com/" target="_blank">Qoder</a></td>
+        <td>qoder</td>
         <td>✅</td>
         <td>✅</td>
         <td></td>
