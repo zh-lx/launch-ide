@@ -2,21 +2,19 @@ import path from 'path';
 import child_process from 'child_process';
 import { Platform, Editor } from './type';
 import { COMMON_EDITOR_PROCESS_MAP, COMMON_EDITORS_MAP } from './editor-info';
-import { commandExists, getEnvVariable } from './utils';
+import { getEnvVariable } from './utils';
 import chalk from 'chalk';
 
 const ProcessExecutionMap = {
   darwin: 'ps ax -o comm=',
   linux: 'ps -eo comm --sort=comm',
-  // wmic's performance is better, but window11 not build in
-  win32: commandExists('wmic')
-    ? 'wmic process where "executablepath is not null" get executablepath'
-    : 'powershell -NoProfile -Command "Get-CimInstance -Query \\"select executablepath from win32_process where executablepath is not null\\" | % { $_.ExecutablePath }"',
+  win32: 'powershell -NoProfile -Command "Get-CimInstance -Query \\"select executablepath from win32_process where executablepath is not null\\" | % { $_.ExecutablePath }"',
 };
 
 export function guessEditor(
   _editor?: Editor,
-  rootDir?: string
+  rootDir?: string,
+  usePid?: boolean,
 ): Array<string | null> {
   let customEditors: string[] | null = null;
 
@@ -38,7 +36,7 @@ export function guessEditor(
   }
 
   // Try to get editor from PID tracing first
-  if (!customEditors) {
+  if (!customEditors && usePid) {
     const editorFromPid = getEditorCommandByPid();
     if (editorFromPid) {
       return [editorFromPid];
@@ -227,9 +225,7 @@ function getWindowsProcessInfo(pid: number): ProcessInfo | null {
     // Ensure UTF-8 encoding for Chinese character compatibility
     compatibleWithChineseCharacter(true);
 
-    const execCommand = commandExists('wmic')
-      ? `wmic process where "ProcessId=${pid}" get ParentProcessId,ExecutablePath /format:csv`
-      : `powershell -NoProfile -Command "Get-CimInstance -Query \"select ParentProcessId,ExecutablePath from win32_process where ProcessId=${pid}\" | ForEach-Object { $_.ExecutablePath + ',' + $_.ParentProcessId }"`;
+    const execCommand = `powershell -NoProfile -Command "Get-CimInstance -ClassName Win32_Process -Filter "ProcessId=${pid}" | Select-Object ParentProcessId, ExecutablePath | ConvertTo-Csv -NoTypeInformation`;
 
     const processInfo = child_process.execSync(execCommand, {
       encoding: 'utf8',
@@ -242,13 +238,13 @@ function getWindowsProcessInfo(pid: number): ProcessInfo | null {
 
     if (lines.length === 0) return null;
 
-    // Node,ExecutablePath,ParentProcessId
-    const parts = lines[0].split(',');
-    if (parts.length < 3) return null;
+    // ParentProcessId,ExecutablePath
+    const [_parentPid, _command] = lines[0].split(',');
+    if (!_command || !_parentPid) return null;
 
     return {
-      command: parts[1].trim(),
-      parentPid: parseInt(parts[2].trim()),
+      command: _command.slice(1, -1),
+      parentPid: Number(_parentPid.slice(1, -1)),
     };
   } catch {
     return null;

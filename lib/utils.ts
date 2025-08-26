@@ -50,6 +50,7 @@ export function commandExists(command: string): boolean {
 
     const result = execSync(`${checkCommand} ${command}`, {
       encoding: 'utf-8',
+      stdio: 'ignore'
     });
     return !!result;
   } catch (error) {
