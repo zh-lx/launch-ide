@@ -90,6 +90,7 @@ interface LaunchIDEParams {
   format?: string | string[];
   onError?: (file: string, error: string) => void;
   rootDir?: string;
+  usePid?: boolean;
 }
 
 export function launchIDE(params: LaunchIDEParams) {
@@ -102,12 +103,13 @@ export function launchIDE(params: LaunchIDEParams) {
     format,
     onError,
     rootDir,
+    usePid,
   } = params;
   if (!fs.existsSync(file)) {
     return;
   }
 
-  let [editor, ...args] = guessEditor(_editor, rootDir);
+  let [editor, ...args] = guessEditor(_editor, rootDir, usePid);
 
   // 获取 path format
   const pathFormat = getEnvFormatPath(rootDir || '') || format;
