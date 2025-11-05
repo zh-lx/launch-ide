@@ -9,6 +9,7 @@ interface LaunchIDEParams {
     onError?: (file: string, error: string) => void;
     rootDir?: string;
     usePid?: boolean;
+    skipRunningCheck?: boolean;
 }
 export declare function launchIDE(params: LaunchIDEParams): void;
 export * from './type';

@@ -15,6 +15,7 @@ export function guessEditor(
   _editor?: Editor,
   rootDir?: string,
   usePid?: boolean,
+  skipRunningCheck?: boolean,
 ): Array<string | null> {
   let customEditors: string[] | null = null;
 
@@ -33,6 +34,12 @@ export function guessEditor(
     if (editor) {
       customEditors = editor;
     }
+  }
+
+  // If we have custom editors set and skipRunningCheck is true, use them directly
+  // without verifying they're running
+  if (customEditors && skipRunningCheck) {
+    return customEditors;
   }
 
   // Try to get editor from PID tracing first
@@ -63,10 +70,10 @@ export function guessEditor(
 
     for (let i = 0; i < editorNames.length; i++) {
       const editorName = editorNames[i] as keyof typeof commonEditors;
-      let editor: string = ''; // 要返回的 editor 结果
-      let runningEditor: string = ''; // 正在运行的 editor 进程名称
+      let editor: string = ''; // Editor result to return
+      let runningEditor: string = ''; // Running editor process name
 
-      // 检测当前 editorName 是否正在运行
+      // Check if current editorName is running
       if (isWin32) {
         const processPath = runningProcesses.find(
           (_process) =>
@@ -80,16 +87,16 @@ export function guessEditor(
         const runningProcess = runningProcesses.find((_process) =>
           _process.toLowerCase().endsWith(editorName.toLowerCase())
         );
-        // 命中了 IDE
+        // Found the IDE
         if (runningProcess) {
           const prefixPath = runningProcess.replace(editorName, '');
           const processName = commonEditors[editorName] as string;
           runningEditor = editorName;
           if (processName.includes('/')) {
-            // 使用 应用进程 路径
+            // Use application process path
             editor = `${prefixPath}${processName}`;
           } else {
-            // 使用 CLI 路径
+            // Use CLI path
             editor = processName;
           }
         }
@@ -101,8 +108,8 @@ export function guessEditor(
       }
 
       if (runningEditor && editor) {
+        // If customEditors is set and this running editor matches, prioritize it
         if (customEditors?.includes(runningEditor)) {
-          // 优先返回用户自定义的 editor
           return [editor];
         }
         if (!first) {
@@ -127,7 +134,7 @@ export function guessEditor(
   return [null];
 }
 
-// 用户指定了 IDE 时，优先走此处
+// Get editor by custom name when user specifies an IDE
 const getEditorByCustom = (editor: Editor): string[] | null => {
   const platform = process.platform as Platform;
   return (
@@ -137,10 +144,10 @@ const getEditorByCustom = (editor: Editor): string[] | null => {
   );
 };
 
-// 兼容中文编码
+// Compatible with Chinese character encoding
 const compatibleWithChineseCharacter = (isWin32: boolean): void => {
   if (isWin32) {
-    // 兼容 windows 系统 powershell 中文乱码问题
+    // Fix Windows PowerShell Chinese character encoding issues
     try {
       child_process.execSync('chcp 65001');
     } catch (error) {
@@ -273,3 +280,4 @@ function isKnownEditor(command: string, editorNames: string[]): boolean {
     command.toLowerCase().endsWith(editorName.toLowerCase())
   );
 }
+

@@ -91,6 +91,7 @@ interface LaunchIDEParams {
   onError?: (file: string, error: string) => void;
   rootDir?: string;
   usePid?: boolean;
+  skipRunningCheck?: boolean;
 }
 
 export function launchIDE(params: LaunchIDEParams) {
@@ -104,12 +105,13 @@ export function launchIDE(params: LaunchIDEParams) {
     onError,
     rootDir,
     usePid,
+    skipRunningCheck,
   } = params;
   if (!fs.existsSync(file)) {
     return;
   }
 
-  let [editor, ...args] = guessEditor(_editor, rootDir, usePid);
+  let [editor, ...args] = guessEditor(_editor, rootDir, usePid, skipRunningCheck);
 
   // 获取 path format
   const pathFormat = getEnvFormatPath(rootDir || '') || format;

@@ -1,2 +1,2 @@
 import { Editor } from './type';
-export declare function guessEditor(_editor?: Editor, rootDir?: string, usePid?: boolean): Array<string | null>;
+export declare function guessEditor(_editor?: Editor, rootDir?: string, usePid?: boolean, skipRunningCheck?: boolean): Array<string | null>;
