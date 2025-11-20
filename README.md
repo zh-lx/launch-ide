@@ -157,6 +157,13 @@ interface LaunchIDEParams {
         <td></td>
     </tr>
     <tr>
+        <td><a href="https://antigravity.google/" target="_blank">Antigravity</a></td>
+        <td>antigravity</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td>✅</td>
+    </tr>
+    <tr>
         <td><a href="https://comate.baidu.com/" target="_blank">comate</a></td>
         <td>comate</td>
         <td>✅</td>

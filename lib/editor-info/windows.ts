@@ -2,13 +2,16 @@ import { EDITOR_PROCESS_MAP } from '../type';
 
 // 有顺序优先级
 export const COMMON_EDITORS_WIN: { [key: string]: string } = {
+  'Antigravity.exe': '',
   'Cursor.exe': '',
   'Windsurf.exe': '',
   'Trae.exe': '',
   'Trae CN.exe': '',
   'comate.exe': '',
   'Qoder.exe': '',
+  'Qoder CN.exe': '',
   'CodeBuddy.exe': '',
+  'CodeBuddy CN.exe': '',
   'Code.exe': '',
   'Code - Insiders.exe': '',
   'VSCodium.exe': '',
@@ -39,6 +42,7 @@ export const COMMON_EDITORS_WIN: { [key: string]: string } = {
 };
 
 export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
+  antigravity: ['Antigravity.exe'],
   code: ['Code.exe'],
   'code-insiders': ['Code - Insiders.exe'],
   webstorm: ['webstorm.exe', 'webstorm64.exe'],
@@ -46,8 +50,8 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   windsurf: ['Windsurf.exe'],
   trae: ['Trae.exe', 'Trae CN.exe'],
   comate: ['comate.exe'],
-  qoder: ['Qoder.exe'],
-  codebuddy: ['CodeBuddy.exe'],
+  qoder: ['Qoder.exe', 'Qoder CN.exe'],
+  codebuddy: ['CodeBuddy.exe', 'CodeBuddy CN.exe'],
   atom: ['atom.exe'],
   hbuilder: [
     'HBuilderX.exe',

@@ -96,8 +96,7 @@ function getFormatByEditor(params: GetEditorFormatParams) {
     case 'charm':
     case 'zed':
       return `${FormatFile}:${FormatLine}:${FormatColumn}`;
-    case 
-    'notepad++':
+    case 'notepad++':
       return ['-n' + FormatLine, '-c' + FormatColumn, FormatFile];
     case 'vim':
     case 'mvim':
@@ -120,6 +119,7 @@ function getFormatByEditor(params: GetEditorFormatParams) {
     case 'windsurf':
     case 'trae':
     case 'codebuddy':
+    case 'antigravity':
     case 'comate':
     case 'qoder':
     case 'vscodium':
