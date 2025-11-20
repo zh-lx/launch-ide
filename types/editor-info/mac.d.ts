@@ -1,12 +1,15 @@
 import { EDITOR_PROCESS_MAP } from '../type';
 export declare const COMMON_EDITORS_OSX: {
+    '/Antigravity.app/Contents/MacOS/Electron': string;
     '/Cursor.app/Contents/MacOS/Cursor': string;
     '/Comate.app/Contents/MacOS/Electron': string;
     '/Qoder.app/Contents/MacOS/Electron': string;
+    '/Qoder CN.app/Contents/MacOS/Electron': string;
     '/Windsurf.app/Contents/MacOS/Electron': string;
     '/Trae.app/Contents/MacOS/Electron': string;
     '/Trae CN.app/Contents/MacOS/Electron': string;
     '/Applications/CodeBuddy.app/Contents/MacOS/Electron': string;
+    '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron': string;
     '/Visual Studio Code.app/Contents/MacOS/Electron': string;
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron': string;
     '/VSCodium.app/Contents/MacOS/Electron': string;

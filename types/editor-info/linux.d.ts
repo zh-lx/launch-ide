@@ -1,5 +1,6 @@
 import { EDITOR_PROCESS_MAP } from '../type';
 export declare const COMMON_EDITORS_LINUX: {
+    antigravity: string;
     cursor: string;
     windsurf: string;
     code: string;
