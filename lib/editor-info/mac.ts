@@ -2,9 +2,13 @@ import { EDITOR_PROCESS_MAP } from '../type';
 
 // 有顺序优先级
 export const COMMON_EDITORS_OSX = {
+  '/Antigravity.app/Contents/MacOS/Electron':
+    '/Antigravity.app/Contents/MacOS/Electron',
   '/Cursor.app/Contents/MacOS/Cursor': '/Cursor.app/Contents/MacOS/Cursor',
   '/Comate.app/Contents/MacOS/Electron': '/Comate.app/Contents/MacOS/Electron',
   '/Qoder.app/Contents/MacOS/Electron': '/Qoder.app/Contents/MacOS/Electron',
+  '/Qoder CN.app/Contents/MacOS/Electron':
+    '/Qoder CN.app/Contents/MacOS/Electron',
   '/Windsurf.app/Contents/MacOS/Electron':
     '/Windsurf.app/Contents/MacOS/Electron',
   '/Trae.app/Contents/MacOS/Electron': '/Trae.app/Contents/MacOS/Electron',
@@ -12,6 +16,8 @@ export const COMMON_EDITORS_OSX = {
     '/Trae CN.app/Contents/MacOS/Electron',
   '/Applications/CodeBuddy.app/Contents/MacOS/Electron':
     '/Applications/CodeBuddy.app/Contents/MacOS/Electron',
+  '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron':
+    '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron',
   '/Visual Studio Code.app/Contents/MacOS/Electron':
     '/Visual Studio Code.app/Contents/MacOS/Electron',
   '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron':
@@ -58,13 +64,20 @@ export const COMMON_EDITORS_OSX = {
 export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
   cursor: ['/Cursor.app/Contents/MacOS/Cursor'],
   comate: ['/Comate.app/Contents/MacOS/Electron'],
-  qoder: ['/Qoder.app/Contents/MacOS/Electron'],
+  qoder: [
+    '/Qoder.app/Contents/MacOS/Electron',
+    '/Qoder CN.app/Contents/MacOS/Electron',
+  ],
   windsurf: ['/Windsurf.app/Contents/MacOS/Electron'],
   trae: [
     '/Trae.app/Contents/MacOS/Electron',
     '/Trae CN.app/Contents/MacOS/Electron',
   ],
-  codebuddy: ['/Applications/CodeBuddy.app/Contents/MacOS/Electron'],
+  codebuddy: [
+    '/Applications/CodeBuddy.app/Contents/MacOS/Electron',
+    '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron',
+  ],
+  antigravity: ['Antigravity.app/Contents/MacOS/Electron'],
   code: ['/Visual Studio Code.app/Contents/MacOS/Electron'],
   'code-insiders': [
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',

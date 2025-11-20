@@ -1,4 +1,5 @@
 export type Editor =
+  | 'antigravity'
   | 'appcode'
   | 'atom'
   | 'atom-beta'

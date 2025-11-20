@@ -2,6 +2,7 @@ import { EDITOR_PROCESS_MAP } from '../type';
 
 // 有顺序优先级
 export const COMMON_EDITORS_LINUX = {
+  antigravity: 'antigravity',
   cursor: 'cursor',
   windsurf: 'windsurf',
   code: 'code',
@@ -33,6 +34,7 @@ export const COMMON_EDITORS_LINUX = {
 };
 
 export const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP = {
+  antigravity: ['antigravity'],
   code: ['code'],
   'code-insiders': ['code-insiders'],
   webstorm: ['webstorm', 'webstorm.sh'],
