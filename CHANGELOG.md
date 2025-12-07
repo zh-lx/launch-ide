@@ -1,3 +1,8 @@
+## 1.2.1 2025-11-20
+
+- 🎉: Support CodeBuddy CN on Windows [#21](https://github.com/zh-lx/launch-ide/pull/21)
+- 🎉: Support Antigravity on Windows [#21](https://github.com/zh-lx/launch-ide/pull/21)
+
 ## 1.2.0 2025-08-26
 
 - 🎉: Improve the performance of guessing editor [#18](https://github.com/zh-lx/launch-ide/pull/18)
