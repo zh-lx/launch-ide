@@ -126,35 +126,35 @@ interface LaunchIDEParams {
         <td>cursor</td>
         <td>✅</td>
         <td>✅</td>
-        <td></td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://codeium.com/windsurf" target="_blank">Windsurf</a></td>
         <td>windsurf</td>
         <td>✅</td>
         <td>✅</td>
-        <td></td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://www.trae.ai/" target="_blank">Trae</a></td>
         <td>trae</td>
         <td>✅</td>
         <td>✅</td>
-        <td></td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://qoder.com/" target="_blank">Qoder</a></td>
         <td>qoder</td>
         <td>✅</td>
         <td>✅</td>
-        <td></td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://www.codebuddy.ai/" target="_blank">CodeBuddy</a></td>
         <td>codebuddy</td>
         <td>✅</td>
         <td>✅</td>
-        <td></td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://antigravity.google/" target="_blank">Antigravity</a></td>
@@ -168,7 +168,7 @@ interface LaunchIDEParams {
         <td>comate</td>
         <td>✅</td>
         <td>✅</td>
-        <td></td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://insiders.vscode.dev/" target="_blank">Visual Studio Code - Insiders</a></td>
