@@ -34,6 +34,8 @@ export function formatOpenPath(
   return [path];
 }
 
+const DefaultPathFormat = ['-g', '-r', '{file}:{line}:{column}'];
+
 // 入口函数：获取打开 IDE 所需要的参数
 export function getArguments(params: {
   processName: string;
@@ -56,7 +58,7 @@ export function getArguments(params: {
   const editorBasename = getEditorBasenameByProcessName(processName);
   const _params = { editorBasename, openWindowParams, workspace };
 
-  const format = getFormatByEditor(_params) || '{file}';
+  const format = getFormatByEditor(_params) || DefaultPathFormat;
 
   // 根据 format 替换具体参数
   return formatOpenPath(fileName, lineNumber, colNumber, pathFormat || format);
