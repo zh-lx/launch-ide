@@ -1,3 +1,7 @@
+## 1.3.0 2025-12-11
+
+- ⭐️: Optimize the default path format [#24](https://github.com/zh-lx/launch-ide/pull/24)
+
 ## 1.2.2 2025-12-07
 
 - 🎉: Support some ides on Linux [#20](https://github.com/zh-lx/launch-ide/pull/23)
