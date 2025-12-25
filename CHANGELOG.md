@@ -1,3 +1,7 @@
+## 1.3.1 2025-12-25
+
+- 🎉: Support Kiro [#26](https://github.com/zh-lx/launch-ide/pull/26)
+
 ## 1.3.0 2025-12-11
 
 - ⭐️: Optimize the default path format [#24](https://github.com/zh-lx/launch-ide/pull/24)
