@@ -2,6 +2,7 @@ import { EDITOR_PROCESS_MAP } from '../type';
 
 // 有顺序优先级
 export const COMMON_EDITORS_WIN: { [key: string]: string } = {
+  'Kiro.exe': '',
   'Antigravity.exe': '',
   'Cursor.exe': '',
   'Windsurf.exe': '',
@@ -42,6 +43,7 @@ export const COMMON_EDITORS_WIN: { [key: string]: string } = {
 };
 
 export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
+  kiro: ['Kiro.exe'],
   antigravity: ['Antigravity.exe'],
   code: ['Code.exe'],
   'code-insiders': ['Code - Insiders.exe'],

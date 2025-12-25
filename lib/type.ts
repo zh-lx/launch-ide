@@ -2,6 +2,7 @@ export type Editor =
   | 'antigravity'
   | 'appcode'
   | 'atom'
+  | 'kiro'
   | 'atom-beta'
   | 'brackets'
   | 'code'

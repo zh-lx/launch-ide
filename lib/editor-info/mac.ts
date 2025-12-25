@@ -2,6 +2,7 @@ import { EDITOR_PROCESS_MAP } from '../type';
 
 // 有顺序优先级
 export const COMMON_EDITORS_OSX = {
+  '/Kiro.app/Contents/MacOS/Electron': 'kiro',
   '/Antigravity.app/Contents/MacOS/Electron':
     '/Antigravity.app/Contents/MacOS/Electron',
   '/Cursor.app/Contents/MacOS/Cursor': '/Cursor.app/Contents/MacOS/Cursor',
@@ -62,6 +63,7 @@ export const COMMON_EDITORS_OSX = {
 };
 
 export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
+  kiro: ['kiro'],
   cursor: ['/Cursor.app/Contents/MacOS/Cursor'],
   comate: ['/Comate.app/Contents/MacOS/Electron'],
   qoder: [

@@ -1,5 +1,6 @@
 import { EDITOR_PROCESS_MAP } from '../type';
 export declare const COMMON_EDITORS_OSX: {
+    '/Kiro.app/Contents/MacOS/Electron': string;
     '/Antigravity.app/Contents/MacOS/Electron': string;
     '/Cursor.app/Contents/MacOS/Cursor': string;
     '/Comate.app/Contents/MacOS/Electron': string;
