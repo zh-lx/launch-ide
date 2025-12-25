@@ -127,6 +127,7 @@ function getFormatByEditor(params: GetEditorFormatParams) {
     case 'vscodium':
     case 'hbuilderx':
     case 'hbuilder':
+    case 'kiro':
       return [
         ...(workspace ? [workspace] : []),
         '-g',
