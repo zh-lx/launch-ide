@@ -1,3 +1,7 @@
+## 1.4.0 2026-01-16
+
+- 🎉: Support open editors by `open` [#27](https://github.com/zh-lx/launch-ide/pull/27)
+
 ## 1.3.1 2025-12-25
 
 - 🎉: Support Kiro [#26](https://github.com/zh-lx/launch-ide/pull/26)
