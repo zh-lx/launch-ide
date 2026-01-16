@@ -121,7 +121,7 @@ interface LaunchIDEParams {
         <th>MacOS</th>
         <th>Windows</th>
         <th>Linux</th>     
-        <th>Whether can launch by <code>open</code></th>        
+        <th>Support <code>open</code>?</th>        
     </tr>
     <tr>
         <td><a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a></td>
@@ -153,7 +153,7 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
-        <td>✅(not CN)</td>
+        <td>✅ (not CN)</td>
     </tr>
     <tr>
         <td><a href="https://qoder.com/" target="_blank">Qoder</a></td>
@@ -161,7 +161,7 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
-        <td>✅(not CN)</td>
+        <td>✅ (not CN)</td>
     </tr>
     <tr>
         <td><a href="https://www.codebuddy.ai/" target="_blank">CodeBuddy</a></td>
@@ -169,7 +169,7 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
-        <td>✅(not CN)</td>
+        <td>✅ (not CN)</td>
     </tr>
     <tr>
         <td><a href="https://antigravity.google/" target="_blank">Antigravity</a></td>
@@ -185,7 +185,7 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
-        <td>✅(not CN)</td>
+        <td>✅ (not CN)</td>
     </tr>
     <tr>
         <td><a href="https://insiders.vscode.dev/" target="_blank">VSCode Insiders</a></td>
