@@ -38,3 +38,4 @@ export declare const COMMON_EDITORS_OSX: {
     '/Rider.app/Contents/MacOS/rider': string;
 };
 export declare const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP;
+export declare const EDITORS_OPEN_MAP: Partial<Record<keyof EDITOR_PROCESS_MAP, string>>;

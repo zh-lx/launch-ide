@@ -99,6 +99,14 @@ interface LaunchIDEParams {
    * @default false
    */
   usePid?: boolean;
+
+  /**
+   * @optional
+   * @type: string
+   * @description: The ways to launch the editor. exec: opening editor using the executable path; open: opening editor using the open command. Only effective on MacOS and these editors: code/cursor/windsurf/qoder/comate/trae/codebuddy/antigravity/kiro/codium
+   * @default exec
+   */
+  type?: 'exec' | 'open';
 }
 ```
 
@@ -112,11 +120,13 @@ interface LaunchIDEParams {
         <th>IDE Encoding Name</th>
         <th>MacOS</th>
         <th>Windows</th>
-        <th>Linux</th>        
+        <th>Linux</th>     
+        <th>Whether can launch by <code>open</code></th>        
     </tr>
     <tr>
         <td><a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a></td>
         <td>code</td>
+        <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
@@ -127,10 +137,12 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://codeium.com/windsurf" target="_blank">Windsurf</a></td>
         <td>windsurf</td>
+        <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
@@ -141,6 +153,7 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
+        <td>✅(not CN)</td>
     </tr>
     <tr>
         <td><a href="https://qoder.com/" target="_blank">Qoder</a></td>
@@ -148,6 +161,7 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
+        <td>✅(not CN)</td>
     </tr>
     <tr>
         <td><a href="https://www.codebuddy.ai/" target="_blank">CodeBuddy</a></td>
@@ -155,10 +169,12 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
+        <td>✅(not CN)</td>
     </tr>
     <tr>
         <td><a href="https://antigravity.google/" target="_blank">Antigravity</a></td>
         <td>antigravity</td>
+        <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
@@ -169,9 +185,10 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
+        <td>✅(not CN)</td>
     </tr>
     <tr>
-        <td><a href="https://insiders.vscode.dev/" target="_blank">Visual Studio Code - Insiders</a></td>
+        <td><a href="https://insiders.vscode.dev/" target="_blank">VSCode Insiders</a></td>
         <td>code-insiders</td>
         <td>✅</td>
         <td>✅</td>
@@ -180,6 +197,7 @@ interface LaunchIDEParams {
     <tr>
         <td><a href="https://vscodium.com/" target="_blank">VSCodium</a></td>
         <td>codium</td>
+        <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>

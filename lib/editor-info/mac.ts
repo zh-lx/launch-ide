@@ -101,3 +101,18 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
   sublime: ['/Sublime Text.app/Contents/MacOS/sublime_text'],
   zed: ['/Zed.app/Contents/MacOS/zed'],
 };
+
+export const EDITORS_OPEN_MAP: Partial<
+  Record<keyof EDITOR_PROCESS_MAP, string>
+> = {
+  kiro: 'kiro',
+  cursor: 'cursor',
+  comate: 'comate',
+  qoder: 'qoder',
+  windsurf: 'windsurf',
+  trae: 'trae',
+  codebuddy: 'codebuddy',
+  antigravity: 'antigravity',
+  code: 'vscode',
+  codium: 'vscodium',
+};
