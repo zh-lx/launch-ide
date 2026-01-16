@@ -121,12 +121,10 @@ interface LaunchIDEParams {
         <th>MacOS</th>
         <th>Windows</th>
         <th>Linux</th>     
-        <th>Support <code>open</code>?</th>        
     </tr>
     <tr>
         <td><a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a></td>
         <td>code</td>
-        <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
@@ -137,12 +135,10 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
-        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://codeium.com/windsurf" target="_blank">Windsurf</a></td>
         <td>windsurf</td>
-        <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
@@ -153,7 +149,6 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
-        <td>✅ (not CN)</td>
     </tr>
     <tr>
         <td><a href="https://qoder.com/" target="_blank">Qoder</a></td>
@@ -161,7 +156,6 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
-        <td>✅ (not CN)</td>
     </tr>
     <tr>
         <td><a href="https://www.codebuddy.ai/" target="_blank">CodeBuddy</a></td>
@@ -169,12 +163,10 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
-        <td>✅ (not CN)</td>
     </tr>
     <tr>
         <td><a href="https://antigravity.google/" target="_blank">Antigravity</a></td>
         <td>antigravity</td>
-        <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
@@ -185,7 +177,6 @@ interface LaunchIDEParams {
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
-        <td>✅ (not CN)</td>
     </tr>
     <tr>
         <td><a href="https://insiders.vscode.dev/" target="_blank">VSCode Insiders</a></td>
@@ -197,7 +188,6 @@ interface LaunchIDEParams {
     <tr>
         <td><a href="https://vscodium.com/" target="_blank">VSCodium</a></td>
         <td>codium</td>
-        <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
@@ -322,6 +312,19 @@ interface LaunchIDEParams {
         <td></td>
     </tr>
 </table>
+
+## Which editor supports to be launched by `open`?
+
+On macOS, some editors support opening with `open`. Taking VSCode as an example: `open "vscode://file/xxx/yy/main.jsx:10:20"`. This method opens the editor quickly and provides a good experience, so it is strongly recommended that users set `type: 'open'` when using following editors:
+- vscode
+- cursor
+- windsurf
+- antigravity
+- qoder (Not CN version)
+- comate (Not CN version)
+- trae (Not CN version)
+- codebuddy (Not CN version)
+
 
 ## ✍️ Custom editor
 
