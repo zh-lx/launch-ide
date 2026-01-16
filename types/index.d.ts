@@ -1,4 +1,4 @@
-import { Editor, IDEOpenMethod } from './type';
+import type { Editor, IDEOpenMethod, LaunchType } from './type';
 interface LaunchIDEParams {
     file: string;
     line?: number;
@@ -9,6 +9,7 @@ interface LaunchIDEParams {
     onError?: (file: string, error: string) => void;
     rootDir?: string;
     usePid?: boolean;
+    type?: LaunchType;
 }
 export declare function launchIDE(params: LaunchIDEParams): void;
 export * from './type';

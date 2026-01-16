@@ -99,6 +99,14 @@ interface LaunchIDEParams {
    * @default false
    */
   usePid?: boolean;
+
+  /**
+   * @optional
+   * @type: string
+   * @description: The ways to launch the editor. exec: opening editor using the executable path; open: opening editor using the open command. Only effective on MacOS and these editors: code/cursor/windsurf/qoder/comate/trae/codebuddy/antigravity/kiro/codium
+   * @default exec
+   */
+  type?: 'exec' | 'open';
 }
 ```
 

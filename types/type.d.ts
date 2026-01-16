@@ -4,3 +4,4 @@ export type EDITOR_PROCESS_MAP = {
     [key in Editor]?: string[];
 };
 export type IDEOpenMethod = 'reuse' | 'new' | 'auto';
+export type LaunchType = 'exec' | 'open';

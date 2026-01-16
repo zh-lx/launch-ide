@@ -3,10 +3,16 @@ import path from 'path';
 import child_process from 'child_process';
 import os from 'os';
 import chalk from 'chalk';
-import { Editor, IDEOpenMethod } from './type';
-import { getArguments } from './get-args';
+import type {
+  Editor,
+  EDITOR_PROCESS_MAP,
+  IDEOpenMethod,
+  LaunchType,
+} from './type';
+import { getArguments, getEditorBasenameByProcessName } from './get-args';
 import { guessEditor } from './guess';
 import { getEnvVariable } from './utils';
+import { EDITORS_OPEN_MAP } from './editor-info/mac';
 
 function isTerminalEditor(editor: string) {
   switch (editor) {
@@ -91,6 +97,7 @@ interface LaunchIDEParams {
   onError?: (file: string, error: string) => void;
   rootDir?: string;
   usePid?: boolean;
+  type?: LaunchType;
 }
 
 export function launchIDE(params: LaunchIDEParams) {
@@ -104,6 +111,7 @@ export function launchIDE(params: LaunchIDEParams) {
     onError,
     rootDir,
     usePid,
+    type = 'exec',
   } = params;
   if (!fs.existsSync(file)) {
     return;
@@ -134,80 +142,101 @@ export function launchIDE(params: LaunchIDEParams) {
     return;
   }
 
+  const editorBasename = getEditorBasenameByProcessName(
+    editor
+  ) as keyof EDITOR_PROCESS_MAP;
   if (
-    process.platform === 'linux' &&
-    file.startsWith('/mnt/') &&
-    /Microsoft/i.test(os.release())
+    type === 'open' &&
+    process.platform === 'darwin' &&
+    EDITORS_OPEN_MAP[editorBasename]
   ) {
-    // Assume WSL / "Bash on Ubuntu on Windows" is being used, and
-    // that the file exists on the Windows file system.
-    // `os.release()` is "4.4.0-43-Microsoft" in the current release
-    // build of WSL, see: https://github.com/Microsoft/BashOnWindows/issues/423#issuecomment-221627364
-    // When a Windows editor is specified, interop functionality can
-    // handle the path translation, but only if a relative path is used.
-    file = path.relative('', file);
-  }
-
-  let workspace = null;
-  if (line) {
-    args = args.concat(
-      getArguments({
-        processName: editor,
-        fileName: file,
-        lineNumber: line,
-        colNumber: column,
-        workspace,
-        openWindowParams: getOpenWindowParams(method),
-        pathFormat,
-      })
+    _childProcess = child_process.spawn(
+      'open',
+      [`${EDITORS_OPEN_MAP[editorBasename]}://file${file}:${line}:${column}`],
+      {
+        stdio: 'ignore',
+        env: {
+          ...process.env,
+          NODE_OPTIONS: '',
+        },
+      }
     );
   } else {
-    args.push(file);
-  }
+    if (
+      process.platform === 'linux' &&
+      file.startsWith('/mnt/') &&
+      /Microsoft/i.test(os.release())
+    ) {
+      // Assume WSL / "Bash on Ubuntu on Windows" is being used, and
+      // that the file exists on the Windows file system.
+      // `os.release()` is "4.4.0-43-Microsoft" in the current release
+      // build of WSL, see: https://github.com/Microsoft/BashOnWindows/issues/423#issuecomment-221627364
+      // When a Windows editor is specified, interop functionality can
+      // handle the path translation, but only if a relative path is used.
+      file = path.relative('', file);
+    }
 
-  if (_childProcess && isTerminalEditor(editor)) {
-    // There's an existing editor process already and it's attached
-    // to the terminal, so go kill it. Otherwise two separate editor
-    // instances attach to the stdin/stdout which gets confusing.
-    _childProcess.kill('SIGKILL');
-  }
+    let workspace = null;
+    if (line) {
+      args = args.concat(
+        getArguments({
+          editorBasename,
+          fileName: file,
+          lineNumber: line,
+          colNumber: column,
+          workspace,
+          openWindowParams: getOpenWindowParams(method),
+          pathFormat,
+        })
+      );
+    } else {
+      args.push(file);
+    }
 
-  if (process.platform === 'win32') {
-    // this two funcs according to launch-editor
-    // compatible for some special characters
-    const escapeCmdArgs = (cmdArgs: string | null) => {
-      return cmdArgs!.replace(/([&|<>,;=^])/g, '^$1');
-    };
-    const doubleQuoteIfNeeded = (str: string | null) => {
-      if (str!.includes('^')) {
-        return `^"${str}^"`;
-      } else if (str!.includes(' ')) {
-        return `"${str}"`;
-      }
-      return str;
-    };
+    if (_childProcess && isTerminalEditor(editor)) {
+      // There's an existing editor process already and it's attached
+      // to the terminal, so go kill it. Otherwise two separate editor
+      // instances attach to the stdin/stdout which gets confusing.
+      _childProcess.kill('SIGKILL');
+    }
 
-    const launchCommand = [editor, ...args.map(escapeCmdArgs)]
-      .map(doubleQuoteIfNeeded)
-      .join(' ');
+    if (process.platform === 'win32') {
+      // this two funcs according to launch-editor
+      // compatible for some special characters
+      const escapeCmdArgs = (cmdArgs: string | null) => {
+        return cmdArgs!.replace(/([&|<>,;=^])/g, '^$1');
+      };
+      const doubleQuoteIfNeeded = (str: string | null) => {
+        if (str!.includes('^')) {
+          return `^"${str}^"`;
+        } else if (str!.includes(' ')) {
+          return `"${str}"`;
+        }
+        return str;
+      };
 
-    _childProcess = child_process.exec(launchCommand, {
-      stdio: 'ignore',
-      // @ts-ignore
-      shell: true,
-      env: {
-        ...process.env,
-        NODE_OPTIONS: '',
-      },
-    });
-  } else {
-    _childProcess = child_process.spawn(editor, args as string[], {
-      stdio: 'ignore',
-      env: {
-        ...process.env,
-        NODE_OPTIONS: '',
-      },
-    });
+      const launchCommand = [editor, ...args.map(escapeCmdArgs)]
+        .map(doubleQuoteIfNeeded)
+        .join(' ');
+
+      _childProcess = child_process.exec(launchCommand, {
+        stdio: 'ignore',
+        // @ts-ignore
+        shell: true,
+        env: {
+          ...process.env,
+          NODE_OPTIONS: '',
+        },
+      });
+    } else {
+      _childProcess = child_process.spawn(editor, args as string[], {
+        stdio: 'ignore',
+        env: {
+          ...process.env,
+          NODE_OPTIONS: '',
+        },
+      });
+    }
   }
 
   _childProcess.on('exit', function (errorCode: string) {

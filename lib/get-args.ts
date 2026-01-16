@@ -38,7 +38,7 @@ const DefaultPathFormat = ['-g', '-r', '{file}:{line}:{column}'];
 
 // 入口函数：获取打开 IDE 所需要的参数
 export function getArguments(params: {
-  processName: string;
+  editorBasename: string;
   fileName: string;
   lineNumber: string | number;
   colNumber: string | number;
@@ -47,7 +47,7 @@ export function getArguments(params: {
   pathFormat?: string | string[];
 }): string[] {
   const {
-    processName,
+    editorBasename,
     fileName,
     lineNumber,
     colNumber,
@@ -55,7 +55,6 @@ export function getArguments(params: {
     openWindowParams,
     pathFormat,
   } = params;
-  const editorBasename = getEditorBasenameByProcessName(processName);
   const _params = { editorBasename, openWindowParams, workspace };
 
   const format = getFormatByEditor(_params) || DefaultPathFormat;
@@ -65,7 +64,7 @@ export function getArguments(params: {
 }
 
 // 根据进程名获取 editor 的 basename
-function getEditorBasenameByProcessName(processName: string) {
+export function getEditorBasenameByProcessName(processName: string) {
   let editorBasename = path
     .basename(processName)
     .replace(/\.(exe|cmd|bat|sh)$/i, '');
