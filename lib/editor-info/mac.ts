@@ -59,6 +59,7 @@ export const COMMON_EDITORS_OSX = {
   '/RubyMine.app/Contents/MacOS/rubymine':
     '/RubyMine.app/Contents/MacOS/rubymine',
   '/MacVim.app/Contents/MacOS/MacVim': 'mvim',
+  nvim: 'nvim',
   '/Rider.app/Contents/MacOS/rider': '/Rider.app/Contents/MacOS/rider',
 };
 
@@ -99,6 +100,7 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
   rider: ['/Rider.app/Contents/MacOS/rider'],
   rubymine: ['/RubyMine.app/Contents/MacOS/rubymine'],
   sublime: ['/Sublime Text.app/Contents/MacOS/sublime_text'],
+  nvim: ['nvim'],
   zed: ['/Zed.app/Contents/MacOS/zed'],
 };
 

@@ -35,6 +35,7 @@ export declare const COMMON_EDITORS_OSX: {
     '/CLion.app/Contents/MacOS/clion': string;
     '/RubyMine.app/Contents/MacOS/rubymine': string;
     '/MacVim.app/Contents/MacOS/MacVim': string;
+    nvim: string;
     '/Rider.app/Contents/MacOS/rider': string;
 };
 export declare const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP;

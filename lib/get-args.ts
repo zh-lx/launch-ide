@@ -101,6 +101,7 @@ function getFormatByEditor(params: GetEditorFormatParams) {
       return ['-n' + FormatLine, '-c' + FormatColumn, FormatFile];
     case 'vim':
     case 'mvim':
+    case 'nvim':
       return [`+call cursor(${FormatLine}, ${FormatColumn})`, FormatFile];
     case 'joe':
     case 'gvim':

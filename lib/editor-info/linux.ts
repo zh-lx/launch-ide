@@ -27,6 +27,7 @@ export const COMMON_EDITORS_LINUX = {
   rubymine: 'rubymine',
   'rubymine.sh': 'rubymine',
   sublime_text: 'subl',
+  nvim: 'nvim',
   vim: 'vim',
   goland: 'goland',
   'goland.sh': 'goland',
@@ -57,6 +58,7 @@ export const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP = {
   rider: ['rider'],
   rubymine: ['rubymine', 'rubymine.sh'],
   sublime: ['sublime_text'],
+  nvim: ['nvim'],
   vim: ['vim'],
   emacs: ['emacs'],
 };
