@@ -25,6 +25,7 @@ export declare const COMMON_EDITORS_LINUX: {
     rubymine: string;
     'rubymine.sh': string;
     sublime_text: string;
+    nvim: string;
     vim: string;
     goland: string;
     'goland.sh': string;
