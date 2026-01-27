@@ -14,6 +14,7 @@ import { guessEditor } from './guess';
 import { getEnvVariable } from './utils';
 import { EDITORS_OPEN_MAP } from './editor-info/mac';
 
+console.log('test')
 function isTerminalEditor(editor: string) {
   switch (editor) {
     case 'vim':
