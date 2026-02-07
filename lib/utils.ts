@@ -4,9 +4,10 @@ import dotenv from 'dotenv';
 import { execSync } from 'child_process';
 
 export function getEnvVariables(rootDir: string): Record<string, string> {
+  let variables = {};
   // get variable from process.env
   if (process.env) {
-    return process.env as Record<string, string>;
+    variables = { ...process.env };
   }
 
   // get variable from .env.local
@@ -27,10 +28,10 @@ export function getEnvVariables(rootDir: string): Record<string, string> {
   if (envPath) {
     const envFile = fs.readFileSync(envPath, 'utf-8');
     const envConfig = dotenv.parse(envFile || '');
-    return envConfig;
+    variables = { ...envConfig, ...variables };
   }
 
-  return {};
+  return variables;
 }
 
 export function getEnvVariable(
