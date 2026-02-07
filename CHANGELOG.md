@@ -1,3 +1,7 @@
+## 1.4.1 2026-02-07
+
+- 🎉: Support get all env variables [#39](https://github.com/zh-lx/launch-ide/pull/39)
+
 ## 1.4.0 2026-01-16
 
 - 🎉: Support open editors by `open` [#27](https://github.com/zh-lx/launch-ide/pull/27)
