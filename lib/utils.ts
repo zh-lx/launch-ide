@@ -3,13 +3,10 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { execSync } from 'child_process';
 
-export function getEnvVariable(
-  variable: string,
-  rootDir: string
-): string | null {
+export function getEnvVariables(rootDir: string): Record<string, string> {
   // get variable from process.env
-  if (process.env[variable]) {
-    return process.env[variable] as string;
+  if (process.env) {
+    return process.env as Record<string, string>;
   }
 
   // get variable from .env.local
@@ -30,10 +27,18 @@ export function getEnvVariable(
   if (envPath) {
     const envFile = fs.readFileSync(envPath, 'utf-8');
     const envConfig = dotenv.parse(envFile || '');
-    return envConfig[variable];
+    return envConfig;
   }
 
-  return null;
+  return {};
+}
+
+export function getEnvVariable(
+  variable: string,
+  rootDir: string
+): string | null {
+  const envVariables = getEnvVariables(rootDir);
+  return envVariables[variable] || null;
 }
 
 /**
