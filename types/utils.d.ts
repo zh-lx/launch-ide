@@ -1,3 +1,4 @@
+export declare function getEnvVariables(rootDir: string): Record<string, string>;
 export declare function getEnvVariable(variable: string, rootDir: string): string | null;
 /**
  * check if command exists
