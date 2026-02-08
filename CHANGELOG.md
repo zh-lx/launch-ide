@@ -1,3 +1,7 @@
+## 1.4.2 2026-02-08
+
+- 🎉: Export `getEnvVariables` function [#40](https://github.com/zh-lx/launch-ide/pull/40)
+
 ## 1.4.1 2026-02-07
 
 - 🎉: Support get all env variables [#39](https://github.com/zh-lx/launch-ide/pull/39)
