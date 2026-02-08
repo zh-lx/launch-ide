@@ -262,4 +262,4 @@ export function launchIDE(params: LaunchIDEParams) {
 
 export * from './type';
 export { formatOpenPath } from './get-args';
-export { getEnvVariable } from './utils';
+export { getEnvVariable, getEnvVariables } from './utils';
