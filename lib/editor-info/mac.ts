@@ -21,6 +21,8 @@ export const COMMON_EDITORS_OSX = {
     '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron',
   '/Visual Studio Code.app/Contents/MacOS/Electron':
     '/Visual Studio Code.app/Contents/MacOS/Electron',
+  '/Visual Studio Code.app/Contents/MacOS/Code':
+    '/Visual Studio Code.app/Contents/MacOS/Code',
   '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron':
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
   '/VSCodium.app/Contents/MacOS/Electron':
@@ -80,7 +82,7 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
     '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron',
   ],
   antigravity: ['Antigravity.app/Contents/MacOS/Electron'],
-  code: ['/Visual Studio Code.app/Contents/MacOS/Electron'],
+  code: ['/Visual Studio Code.app/Contents/MacOS/Electron', '/Visual Studio Code.app/Contents/MacOS/Code'],
   'code-insiders': [
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
   ],
