@@ -12,6 +12,7 @@ export declare const COMMON_EDITORS_OSX: {
     '/Applications/CodeBuddy.app/Contents/MacOS/Electron': string;
     '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron': string;
     '/Visual Studio Code.app/Contents/MacOS/Electron': string;
+    '/Visual Studio Code.app/Contents/MacOS/Code': string;
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron': string;
     '/VSCodium.app/Contents/MacOS/Electron': string;
     '/WebStorm.app/Contents/MacOS/webstorm': string;
