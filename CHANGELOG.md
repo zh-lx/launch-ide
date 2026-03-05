@@ -1,3 +1,7 @@
+## 1.4.3 2026-03-05
+
+- 🐛: Compatible for VSCode `1.110.0+` on MacOS [#42](https://github.com/zh-lx/launch-ide/pull/42)
+
 ## 1.4.2 2026-02-08
 
 - 🎉: Export `getEnvVariables` function [#40](https://github.com/zh-lx/launch-ide/pull/40)
