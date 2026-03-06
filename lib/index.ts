@@ -17,6 +17,7 @@ import { EDITORS_OPEN_MAP } from './editor-info/mac';
 function isTerminalEditor(editor: string) {
   switch (editor) {
     case 'vim':
+    case 'nvim':
     case 'emacs':
     case 'nano':
       return true;

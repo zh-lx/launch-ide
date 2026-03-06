@@ -24,6 +24,7 @@ export type Editor =
   | 'rider'
   | 'rubymine'
   | 'sublime'
+  | 'nvim'
   | 'vim'
   | 'webstorm'
   | 'windsurf'
