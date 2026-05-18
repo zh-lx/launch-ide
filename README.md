@@ -103,10 +103,10 @@ interface LaunchIDEParams {
   /**
    * @optional
    * @type: string
-   * @description: The ways to launch the editor. exec: opening editor using the executable path; open: opening editor using the open command. Only effective on MacOS and these editors: code/cursor/windsurf/qoder/comate/trae/codebuddy/antigravity/kiro/codium
+   * @description: The ways to launch the editor. `exec`: opening editor using the executable path. `open`: opening editor using the macOS `open` command (activates the editor). `openInBackground`: like `open` but adds the `-g` flag, so the file opens at the right line without bringing the editor to the foreground — the user's current window (e.g. browser) keeps focus. `open` and `openInBackground` are only effective on MacOS and these editors: code/cursor/windsurf/qoder/comate/trae/codebuddy/antigravity/kiro/codium
    * @default exec
    */
-  type?: 'exec' | 'open';
+  type?: 'exec' | 'open' | 'openInBackground';
 }
 ```
 

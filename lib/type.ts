@@ -35,4 +35,4 @@ export type EDITOR_PROCESS_MAP = {
 };
 export type IDEOpenMethod = 'reuse' | 'new' | 'auto';
 
-export type LaunchType = 'exec' | 'open';
+export type LaunchType = 'exec' | 'open' | 'openInBackground';

@@ -146,21 +146,24 @@ export function launchIDE(params: LaunchIDEParams) {
     editor
   ) as keyof EDITOR_PROCESS_MAP;
   if (
-    type === 'open' &&
+    (type === 'open' || type === 'openInBackground') &&
     process.platform === 'darwin' &&
     EDITORS_OPEN_MAP[editorBasename]
   ) {
-    _childProcess = child_process.spawn(
-      'open',
-      [`${EDITORS_OPEN_MAP[editorBasename]}://file${file}:${line}:${column}`],
-      {
-        stdio: 'ignore',
-        env: {
-          ...process.env,
-          NODE_OPTIONS: '',
-        },
-      }
-    );
+    // `-g` opens the URL via Launch Services without activating the target
+    // app, so the editor jumps to the file but the user's current window
+    // keeps focus. macOS-only; ignored on other platforms.
+    const openArgs =
+      type === 'openInBackground'
+        ? ['-g', `${EDITORS_OPEN_MAP[editorBasename]}://file${file}:${line}:${column}`]
+        : [`${EDITORS_OPEN_MAP[editorBasename]}://file${file}:${line}:${column}`];
+    _childProcess = child_process.spawn('open', openArgs, {
+      stdio: 'ignore',
+      env: {
+        ...process.env,
+        NODE_OPTIONS: '',
+      },
+    });
   } else {
     if (
       process.platform === 'linux' &&
