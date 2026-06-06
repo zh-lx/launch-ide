@@ -1,3 +1,7 @@
+## 1.4.4 2026-06-06
+
+- 🎉: Support `open-bg` launch type to open files on MacOS without stealing focus [#43](https://github.com/zh-lx/launch-ide/pull/43)
+
 ## 1.4.3 2026-03-05
 
 - 🐛: Compatible for VSCode `1.110.0+` on MacOS [#42](https://github.com/zh-lx/launch-ide/pull/42)
