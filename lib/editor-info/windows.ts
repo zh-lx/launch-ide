@@ -40,6 +40,7 @@ export const COMMON_EDITORS_WIN: { [key: string]: string } = {
   'goland64.exe': '',
   'rider.exe': '',
   'rider64.exe': '',
+  'zed.exe': '',
 };
 
 export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
@@ -72,4 +73,5 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   rubymine: ['rubymine.exe', 'rubymine64.exe'],
   sublime: ['sublime_text.exe'],
   notepad: ['notepad++.exe'],
+  zed: ['zed.exe'],
 };
