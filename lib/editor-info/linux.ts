@@ -1,46 +1,8 @@
 import { EDITOR_PROCESS_MAP } from '../type';
 
-// 有顺序优先级
-export const COMMON_EDITORS_LINUX = {
-  kiro: 'kiro',
-  antigravity: 'antigravity',
-  cursor: 'cursor',
-  windsurf: 'windsurf',
-  code: 'code',
-  vscodium: 'vscodium',
-  codium: 'codium',
-  webstorm: 'webstorm',
-  'webstorm.sh': 'webstorm',
-  hbuilderx: 'hbuilderx',
-  'hbuilderx.sh': 'hbuilderx',
-  atom: 'atom',
-  Brackets: 'brackets',
-  'code-insiders': 'code-insiders',
-  emacs: 'emacs',
-  gvim: 'gvim',
-  idea: 'idea',
-  'idea.sh': 'idea',
-  phpstorm: 'phpstorm',
-  'phpstorm.sh': 'phpstorm',
-  pycharm: 'pycharm',
-  'pycharm.sh': 'pycharm',
-  rubymine: 'rubymine',
-  'rubymine.sh': 'rubymine',
-  sublime_text: 'subl',
-  vim: 'vim',
-  goland: 'goland',
-  'goland.sh': 'goland',
-  rider: 'rider',
-  'rider.sh': 'rider',
-  trae: 'trae',
-  zed: 'zed',
-};
-
 export const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP = {
   kiro: ['kiro'],
   antigravity: ['antigravity'],
-  code: ['code'],
-  'code-insiders': ['code-insiders'],
   webstorm: ['webstorm', 'webstorm.sh'],
   cursor: ['cursor'],
   windsurf: ['windsurf'],
@@ -48,6 +10,8 @@ export const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP = {
   comate: ['comate'],
   qoder: ['qoder'],
   codebuddy: ['codebuddy'],
+  code: ['code'],
+  'code-insiders': ['code-insiders'],
   atom: ['atom'],
   hbuilder: ['hbuilderx', 'hbuilderx.sh'],
   phpstorm: ['phpstorm', 'phpstorm.sh'],
@@ -61,4 +25,21 @@ export const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP = {
   sublime: ['sublime_text'],
   vim: ['vim'],
   emacs: ['emacs'],
+  zed: ['zed'],
+};
+
+const commonEditorsLinux: { [key: string]: string } = {};
+Object.entries(EDITOR_PROCESS_MAP_LINUX).forEach(([editor, processes]) => {
+  for (let process of processes) {
+    commonEditorsLinux[process] = editor;
+  }
+});
+export const COMMON_EDITORS_LINUX = {
+  ...commonEditorsLinux,
+  vscodium: 'vscodium',
+  codium: 'codium',
+  hbuilderx: 'hbuilderx',
+  'hbuilderx.sh': 'hbuilderx',
+  gvim: 'gvim',
+  sublime_text: 'subl',
 };

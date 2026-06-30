@@ -1,69 +1,5 @@
 import { Editor, EDITOR_PROCESS_MAP } from '../type';
 
-// 有顺序优先级
-export const COMMON_EDITORS_OSX = {
-  '/Kiro.app/Contents/MacOS/Electron': '/Kiro.app/Contents/MacOS/Electron',
-  '/Antigravity.app/Contents/MacOS/Electron':
-    '/Antigravity.app/Contents/MacOS/Electron',
-  '/Cursor.app/Contents/MacOS/Cursor': '/Cursor.app/Contents/MacOS/Cursor',
-  '/Comate.app/Contents/MacOS/Electron': '/Comate.app/Contents/MacOS/Electron',
-  '/Qoder.app/Contents/MacOS/Electron': '/Qoder.app/Contents/MacOS/Electron',
-  '/Qoder CN.app/Contents/MacOS/Electron':
-    '/Qoder CN.app/Contents/MacOS/Electron',
-  '/Windsurf.app/Contents/MacOS/Electron':
-    '/Windsurf.app/Contents/MacOS/Electron',
-  '/Trae.app/Contents/MacOS/Electron': '/Trae.app/Contents/MacOS/Electron',
-  '/Trae CN.app/Contents/MacOS/Electron':
-    '/Trae CN.app/Contents/MacOS/Electron',
-  '/Applications/CodeBuddy.app/Contents/MacOS/Electron':
-    '/Applications/CodeBuddy.app/Contents/MacOS/Electron',
-  '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron':
-    '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron',
-  '/Visual Studio Code.app/Contents/MacOS/Electron':
-    '/Visual Studio Code.app/Contents/MacOS/Electron',
-  '/Visual Studio Code.app/Contents/MacOS/Code':
-    '/Visual Studio Code.app/Contents/MacOS/Code',
-  '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron':
-    '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
-  '/VSCodium.app/Contents/MacOS/Electron':
-    '/VSCodium.app/Contents/MacOS/Electron',
-  '/WebStorm.app/Contents/MacOS/webstorm':
-    '/WebStorm.app/Contents/MacOS/webstorm',
-  '/HBuilderX.app/Contents/MacOS/HBuilderX':
-    '/HBuilderX.app/Contents/MacOS/HBuilderX',
-  '/Atom.app/Contents/MacOS/Atom': 'atom',
-  '/Atom Beta.app/Contents/MacOS/Atom Beta':
-    '/Atom Beta.app/Contents/MacOS/Atom Beta',
-  '/Brackets.app/Contents/MacOS/Brackets': 'brackets',
-  '/Sublime Text.app/Contents/MacOS/Sublime Text':
-    '/Sublime Text.app/Contents/SharedSupport/bin/subl',
-  '/Sublime Text.app/Contents/MacOS/sublime_text':
-    '/Sublime Text.app/Contents/SharedSupport/bin/subl',
-  '/Sublime Text 2.app/Contents/MacOS/Sublime Text 2':
-    '/Sublime Text 2.app/Contents/SharedSupport/bin/subl',
-  '/Sublime Text Dev.app/Contents/MacOS/Sublime Text':
-    '/Sublime Text Dev.app/Contents/SharedSupport/bin/subl',
-  '/PhpStorm.app/Contents/MacOS/phpstorm':
-    '/PhpStorm.app/Contents/MacOS/phpstorm',
-  '/PyCharm.app/Contents/MacOS/pycharm': '/PyCharm.app/Contents/MacOS/pycharm',
-  '/PyCharm CE.app/Contents/MacOS/pycharm':
-    '/PyCharm CE.app/Contents/MacOS/pycharm',
-  '/IntelliJ IDEA.app/Contents/MacOS/idea':
-    '/IntelliJ IDEA.app/Contents/MacOS/idea',
-  '/IntelliJ IDEA Ultimate.app/Contents/MacOS/idea':
-    '/IntelliJ IDEA Ultimate.app/Contents/MacOS/idea',
-  '/IntelliJ IDEA Community Edition.app/Contents/MacOS/idea':
-    '/IntelliJ IDEA Community Edition.app/Contents/MacOS/idea',
-  '/Zed.app/Contents/MacOS/zed': 'zed',
-  '/GoLand.app/Contents/MacOS/goland': '/GoLand.app/Contents/MacOS/goland',
-  '/AppCode.app/Contents/MacOS/appcode': '/AppCode.app/Contents/MacOS/appcode',
-  '/CLion.app/Contents/MacOS/clion': '/CLion.app/Contents/MacOS/clion',
-  '/RubyMine.app/Contents/MacOS/rubymine':
-    '/RubyMine.app/Contents/MacOS/rubymine',
-  '/MacVim.app/Contents/MacOS/MacVim': 'mvim',
-  '/Rider.app/Contents/MacOS/rider': '/Rider.app/Contents/MacOS/rider',
-};
-
 export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
   kiro: ['/Kiro.app/Contents/MacOS/Electron', '/Kiro.app/Contents/MacOS/Kiro'],
   cursor: ['/Cursor.app/Contents/MacOS/Cursor'],
@@ -105,7 +41,10 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
   ],
   webstorm: ['/WebStorm.app/Contents/MacOS/webstorm'],
-  atom: ['/Atom.app/Contents/MacOS/Atom'],
+  atom: [
+    '/Atom.app/Contents/MacOS/Atom',
+    '/Atom Beta.app/Contents/MacOS/Atom Beta',
+  ],
   hbuilder: ['/HBuilderX.app/Contents/MacOS/HBuilderX'],
   phpstorm: ['/PhpStorm.app/Contents/MacOS/phpstorm'],
   pycharm: ['/PyCharm.app/Contents/MacOS/pycharm'],
@@ -120,6 +59,25 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
   rubymine: ['/RubyMine.app/Contents/MacOS/rubymine'],
   sublime: ['/Sublime Text.app/Contents/MacOS/sublime_text'],
   zed: ['/Zed.app/Contents/MacOS/zed'],
+};
+
+const commonEditorMac: { [key: string]: string } = {};
+for (let processes of Object.values(EDITOR_PROCESS_MAP_OSX)) {
+  for (let process of processes) {
+    commonEditorMac[process] = process;
+  }
+}
+export const COMMON_EDITORS_OSX = {
+  ...commonEditorMac,
+  '/Sublime Text.app/Contents/MacOS/Sublime Text':
+    '/Sublime Text.app/Contents/SharedSupport/bin/subl',
+  '/Sublime Text.app/Contents/MacOS/sublime_text':
+    '/Sublime Text.app/Contents/SharedSupport/bin/subl',
+  '/Sublime Text 2.app/Contents/MacOS/Sublime Text 2':
+    '/Sublime Text 2.app/Contents/SharedSupport/bin/subl',
+  '/Sublime Text Dev.app/Contents/MacOS/Sublime Text':
+    '/Sublime Text Dev.app/Contents/SharedSupport/bin/subl',
+  '/MacVim.app/Contents/MacOS/MacVim': 'mvim',
 };
 
 export const EDITORS_OPEN_MAP: Partial<

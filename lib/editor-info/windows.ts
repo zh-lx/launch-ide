@@ -1,53 +1,8 @@
 import { EDITOR_PROCESS_MAP } from '../type';
 
-// 有顺序优先级
-export const COMMON_EDITORS_WIN: { [key: string]: string } = {
-  'Kiro.exe': '',
-  'Antigravity.exe': '',
-  'Cursor.exe': '',
-  'Windsurf.exe': '',
-  'Trae.exe': '',
-  'Trae CN.exe': '',
-  'comate.exe': '',
-  'Qoder.exe': '',
-  'Qoder CN.exe': '',
-  'CodeBuddy.exe': '',
-  'CodeBuddy CN.exe': '',
-  'Code.exe': '',
-  'Code - Insiders.exe': '',
-  'VSCodium.exe': '',
-  'webstorm.exe': '',
-  'webstorm64.exe': '',
-  'HBuilderX.exe': '',
-  'HBuilderX64.exe': '',
-  'HBuilder.exe': '',
-  'HBuilder64.exe': '',
-  'Brackets.exe': '',
-  'atom.exe': '',
-  'sublime_text.exe': '',
-  'notepad++.exe': '',
-  'clion.exe': '',
-  'clion64.exe': '',
-  'idea.exe': '',
-  'idea64.exe': '',
-  'phpstorm.exe': '',
-  'phpstorm64.exe': '',
-  'pycharm.exe': '',
-  'pycharm64.exe': '',
-  'rubymine.exe': '',
-  'rubymine64.exe': '',
-  'goland.exe': '',
-  'goland64.exe': '',
-  'rider.exe': '',
-  'rider64.exe': '',
-  'zed.exe': '',
-};
-
 export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   kiro: ['Kiro.exe'],
   antigravity: ['Antigravity.exe'],
-  code: ['Code.exe'],
-  'code-insiders': ['Code - Insiders.exe'],
   webstorm: ['webstorm.exe', 'webstorm64.exe'],
   cursor: ['Cursor.exe'],
   windsurf: ['Windsurf.exe'],
@@ -55,6 +10,8 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   comate: ['comate.exe'],
   qoder: ['Qoder.exe', 'Qoder CN.exe'],
   codebuddy: ['CodeBuddy.exe', 'CodeBuddy CN.exe'],
+  code: ['Code.exe'],
+  'code-insiders': ['Code - Insiders.exe'],
   atom: ['atom.exe'],
   hbuilder: [
     'HBuilderX.exe',
@@ -75,3 +32,11 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   notepad: ['notepad++.exe'],
   zed: ['zed.exe'],
 };
+
+const commonEditorWins: { [key: string]: string } = {};
+for (let processes of Object.values(EDITOR_PROCESS_MAP_WIN)) {
+  for (let process of processes!) {
+    commonEditorWins[process] = '';
+  }
+}
+export const COMMON_EDITORS_WIN = commonEditorWins;
