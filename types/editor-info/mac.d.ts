@@ -1,4 +1,4 @@
-import { EDITOR_PROCESS_MAP } from '../type';
+import { Editor, EDITOR_PROCESS_MAP } from '../type';
 export declare const COMMON_EDITORS_OSX: {
     '/Kiro.app/Contents/MacOS/Electron': string;
     '/Antigravity.app/Contents/MacOS/Electron': string;
@@ -40,3 +40,4 @@ export declare const COMMON_EDITORS_OSX: {
 };
 export declare const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP;
 export declare const EDITORS_OPEN_MAP: Partial<Record<keyof EDITOR_PROCESS_MAP, string>>;
+export declare const Force_Open_List: Editor[];

@@ -15,7 +15,7 @@ export function formatOpenPath(
   file: string,
   line: string | number,
   column: string | number,
-  format: string | string[] | boolean
+  format: string | string[] | boolean,
 ) {
   let path = `${file}:${line}:${column}`;
   if (typeof format === 'string') {
@@ -74,7 +74,11 @@ export function getEditorBasenameByProcessName(processName: string) {
   for (let i = 0; i < editorBasenames.length; i++) {
     const editorPaths =
       COMMON_EDITOR_PROCESS_MAP[platform][editorBasenames[i] as Editor] || [];
-    if (editorPaths.some((editorPath) => processName.endsWith(editorPath))) {
+    if (
+      editorPaths.some((editorPath) =>
+        processName.toLowerCase().endsWith(editorPath.toLowerCase()),
+      )
+    ) {
       editorBasename = editorBasenames[i];
       break;
     }

@@ -32,6 +32,8 @@ export const COMMON_EDITORS_LINUX = {
   'goland.sh': 'goland',
   rider: 'rider',
   'rider.sh': 'rider',
+  trae: 'trae',
+  zed: 'zed',
 };
 
 export const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP = {

@@ -12,7 +12,7 @@ import type {
 import { getArguments, getEditorBasenameByProcessName } from './get-args';
 import { guessEditor } from './guess';
 import { getEnvVariable } from './utils';
-import { EDITORS_OPEN_MAP } from './editor-info/mac';
+import { EDITORS_OPEN_MAP, Force_Open_List } from './editor-info/mac';
 
 function isTerminalEditor(editor: string) {
   switch (editor) {
@@ -27,7 +27,7 @@ function isTerminalEditor(editor: string) {
 function getEnvFormatPath(rootDir: string) {
   const codeInspectorFormatPath = getEnvVariable(
     'CODE_INSPECTOR_FORMAT_PATH',
-    rootDir
+    rootDir,
   );
   if (codeInspectorFormatPath) {
     try {
@@ -42,14 +42,14 @@ function getEnvFormatPath(rootDir: string) {
 
 function printInstructions(fileName: any, errorMessage: string | any[] | null) {
   console.log(
-    chalk.red('Could not open ' + path.basename(fileName) + ' in the editor.')
+    chalk.red('Could not open ' + path.basename(fileName) + ' in the editor.'),
   );
   if (errorMessage) {
     if (errorMessage[errorMessage.length - 1] !== '.') {
       errorMessage += '.';
     }
     console.log(
-      chalk.red('The editor process exited with an error: ' + errorMessage)
+      chalk.red('The editor process exited with an error: ' + errorMessage),
     );
   }
   console.log(
@@ -62,7 +62,7 @@ function printInstructions(fileName: any, errorMessage: string | any[] | null) {
       chalk.green('editor: "code"') +
       ' to CodeInspectorPlugin config, ' +
       'and then restart the development server. Learn more: ' +
-      chalk.green('https://goo.gl/MMTaZt')
+      chalk.green('https://goo.gl/MMTaZt'),
   );
 }
 
@@ -71,7 +71,7 @@ let _childProcess:
       kill: (arg0: string) => void;
       on: (
         arg0: string,
-        arg1: { (errorCode: any): void; (error: any): void }
+        arg1: { (errorCode: any): void; (error: any): void },
       ) => void;
     }
   | any
@@ -136,17 +136,19 @@ export function launchIDE(params: LaunchIDEParams) {
           chalk.green('editor: "code"') +
           ' to CodeInspectorPlugin config, ' +
           'and then restart the development server. Learn more: ' +
-          chalk.green('https://goo.gl/MMTaZt')
+          chalk.green('https://goo.gl/MMTaZt'),
       );
     }
     return;
   }
 
   const editorBasename = getEditorBasenameByProcessName(
-    editor
+    editor,
   ) as keyof EDITOR_PROCESS_MAP;
   if (
-    (type === 'open' || type === 'open-bg') &&
+    (type === 'open' ||
+      type === 'open-bg' ||
+      Force_Open_List.includes(editorBasename)) &&
     process.platform === 'darwin' &&
     EDITORS_OPEN_MAP[editorBasename]
   ) {
@@ -188,7 +190,7 @@ export function launchIDE(params: LaunchIDEParams) {
           workspace,
           openWindowParams: getOpenWindowParams(method),
           pathFormat,
-        })
+        }),
       );
     } else {
       args.push(file);

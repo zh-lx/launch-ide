@@ -1,4 +1,4 @@
-import { EDITOR_PROCESS_MAP } from '../type';
+import { Editor, EDITOR_PROCESS_MAP } from '../type';
 
 // 有顺序优先级
 export const COMMON_EDITORS_OSX = {
@@ -82,7 +82,10 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
     '/Applications/CodeBuddy CN.app/Contents/MacOS/Electron',
   ],
   antigravity: ['Antigravity.app/Contents/MacOS/Electron'],
-  code: ['/Visual Studio Code.app/Contents/MacOS/Electron', '/Visual Studio Code.app/Contents/MacOS/Code'],
+  code: [
+    '/Visual Studio Code.app/Contents/MacOS/Electron',
+    '/Visual Studio Code.app/Contents/MacOS/Code',
+  ],
   'code-insiders': [
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
   ],
@@ -117,4 +120,7 @@ export const EDITORS_OPEN_MAP: Partial<
   antigravity: 'antigravity',
   code: 'vscode',
   codium: 'vscodium',
+  zed: 'zed',
 };
+
+export const Force_Open_List: Editor[] = ['zed'];
