@@ -30,5 +30,7 @@ export declare const COMMON_EDITORS_LINUX: {
     'goland.sh': string;
     rider: string;
     'rider.sh': string;
+    trae: string;
+    zed: string;
 };
 export declare const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP;
