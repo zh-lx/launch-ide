@@ -17,6 +17,10 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
     '/Windsurf.app/Contents/MacOS/Electron',
     '/Windsurf.app/Contents/MacOS/Windsurf',
   ],
+  devin: [
+    'Devin.app/Contents/MacOS/Devin',
+    'Devin.app/Contents/MacOS/Electron',
+  ],
   trae: [
     '/Trae.app/Contents/MacOS/Electron',
     '/Trae CN.app/Contents/MacOS/Electron',
@@ -87,6 +91,7 @@ export const EDITORS_OPEN_MAP: Partial<
   cursor: 'cursor',
   comate: 'comate',
   qoder: 'qoder',
+  devin: 'devin',
   windsurf: 'windsurf',
   trae: 'trae',
   codebuddy: 'codebuddy',

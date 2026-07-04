@@ -5,6 +5,7 @@ export const EDITOR_PROCESS_MAP_LINUX: EDITOR_PROCESS_MAP = {
   antigravity: ['antigravity'],
   webstorm: ['webstorm', 'webstorm.sh'],
   cursor: ['cursor'],
+  devin: ['devin'],
   windsurf: ['windsurf'],
   trae: ['trae'],
   comate: ['comate'],

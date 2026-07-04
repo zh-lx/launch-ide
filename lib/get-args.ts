@@ -122,6 +122,7 @@ function getFormatByEditor(params: GetEditorFormatParams) {
     case 'codium':
     case 'cursor':
     case 'windsurf':
+    case 'devin':
     case 'trae':
     case 'codebuddy':
     case 'antigravity':
