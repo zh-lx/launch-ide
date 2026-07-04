@@ -6,6 +6,7 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   webstorm: ['webstorm.exe', 'webstorm64.exe'],
   cursor: ['Cursor.exe'],
   windsurf: ['Windsurf.exe'],
+  devin: ['Devin.exe'],
   trae: ['Trae.exe', 'Trae CN.exe'],
   comate: ['comate.exe'],
   qoder: ['Qoder.exe', 'Qoder CN.exe'],

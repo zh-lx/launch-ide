@@ -12,6 +12,7 @@ export type Editor =
   | 'comate'
   | 'cursor'
   | 'colin'
+  | 'devin'
   | 'emacs'
   | 'goland'
   | 'hbuilder'
