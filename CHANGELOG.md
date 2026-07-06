@@ -1,3 +1,8 @@
+## 1.4.5 2026-07-06
+
+- 🐛: Resolve the issue that zed can't open the file [#48](https://github.com/zh-lx/launch-ide/pull/48)
+- 🎉: Support `Devin` editor [#47](https://github.com/zh-lx/launch-ide/pull/47)- 🎉: Compatible for new version of some editors such as `antigravity` [#45](https://github.com/zh-lx/launch-ide/pull/45)
+
 ## 1.4.4 2026-06-06
 
 - 🎉: Support `open-bg` launch type to open files on MacOS without stealing focus [#43](https://github.com/zh-lx/launch-ide/pull/43)

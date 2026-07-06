@@ -309,7 +309,14 @@ interface LaunchIDEParams {
         <td>zed</td>
         <td>✅</td>
         <td>✅</td>
-        <td></td>
+        <td>✅</td>
+    </tr>
+    <tr>
+        <td><a href="https://devin.ai/" target="_blank">Devin</a></td>
+        <td>devin</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td>✅</td>
     </tr>
 </table>
 
