@@ -99,7 +99,6 @@ function getFormatByEditor(params: GetEditorFormatParams) {
     case 'sublime_text':
     case 'wstorm':
     case 'charm':
-    case 'zed':
       return `${FormatFile}:${FormatLine}:${FormatColumn}`;
     case 'notepad++':
       return ['-n' + FormatLine, '-c' + FormatColumn, FormatFile];
@@ -160,6 +159,11 @@ function getFormatByEditor(params: GetEditorFormatParams) {
         '--line',
         FormatLine,
         FormatFile,
+      ];
+    case 'zed':
+      return [
+        openWindowParams === '-n' ? '-n' : '-a',
+        `${FormatFile}:${FormatLine}:${FormatColumn}`,
       ];
   }
   return '';

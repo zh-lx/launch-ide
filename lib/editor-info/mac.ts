@@ -1,4 +1,4 @@
-import { Editor, EDITOR_PROCESS_MAP } from '../type';
+import { EDITOR_PROCESS_MAP } from '../type';
 
 export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
   kiro: ['/Kiro.app/Contents/MacOS/Electron', '/Kiro.app/Contents/MacOS/Kiro'],
@@ -82,6 +82,7 @@ export const COMMON_EDITORS_OSX = {
   '/Sublime Text Dev.app/Contents/MacOS/Sublime Text':
     '/Sublime Text Dev.app/Contents/SharedSupport/bin/subl',
   '/MacVim.app/Contents/MacOS/MacVim': 'mvim',
+  '/Zed.app/Contents/MacOS/zed': '/Zed.app/Contents/MacOS/cli',
 };
 
 export const EDITORS_OPEN_MAP: Partial<
@@ -100,5 +101,3 @@ export const EDITORS_OPEN_MAP: Partial<
   codium: 'vscodium',
   zed: 'zed',
 };
-
-export const Force_Open_List: Editor[] = ['zed'];

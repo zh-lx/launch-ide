@@ -12,7 +12,7 @@ import type {
 import { getArguments, getEditorBasenameByProcessName } from './get-args';
 import { guessEditor } from './guess';
 import { getEnvVariable } from './utils';
-import { EDITORS_OPEN_MAP, Force_Open_List } from './editor-info/mac';
+import { EDITORS_OPEN_MAP } from './editor-info/mac';
 
 function isTerminalEditor(editor: string) {
   switch (editor) {
@@ -146,9 +146,7 @@ export function launchIDE(params: LaunchIDEParams) {
     editor,
   ) as keyof EDITOR_PROCESS_MAP;
   if (
-    (type === 'open' ||
-      type === 'open-bg' ||
-      Force_Open_List.includes(editorBasename)) &&
+    (type === 'open' || type === 'open-bg') &&
     process.platform === 'darwin' &&
     EDITORS_OPEN_MAP[editorBasename]
   ) {
