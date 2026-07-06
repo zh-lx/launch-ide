@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import child_process from 'child_process';
 import { Platform, Editor } from './type';
 import { COMMON_EDITOR_PROCESS_MAP, COMMON_EDITORS_MAP } from './editor-info';
@@ -74,7 +75,7 @@ export function guessEditor(
         );
         if (processPath) {
           runningEditor = path.basename(processPath);
-          editor = processPath;
+          editor = getWindowsEditorCommand(processPath);
         }
       } else if (platform === 'darwin') {
         const runningProcess = runningProcesses.find((_process) =>
@@ -136,6 +137,17 @@ const getEditorByCustom = (editor: Editor): string[] | null => {
     null
   );
 };
+
+function getWindowsEditorCommand(processPath: string): string {
+  if (path.basename(processPath).toLowerCase() === 'zed.exe') {
+    const zedCliPath = path.join(path.dirname(processPath), 'bin', 'zed.exe');
+    if (fs.existsSync(zedCliPath)) {
+      return zedCliPath;
+    }
+  }
+
+  return processPath;
+}
 
 // 兼容中文编码
 const compatibleWithChineseCharacter = (isWin32: boolean): void => {
