@@ -62,7 +62,7 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
   rider: ['/Rider.app/Contents/MacOS/rider'],
   rubymine: ['/RubyMine.app/Contents/MacOS/rubymine'],
   sublime: ['/Sublime Text.app/Contents/MacOS/sublime_text'],
-  zed: ['/Zed.app/Contents/MacOS/zed'],
+  zed: ['/Zed.app/Contents/MacOS/zed', '/Zed.app/Contents/MacOS/cli'],
 };
 
 const commonEditorMac: { [key: string]: string } = {};
