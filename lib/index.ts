@@ -13,6 +13,11 @@ import { getArguments, getEditorBasenameByProcessName } from './get-args';
 import { guessEditor } from './guess';
 import { getEnvVariable } from './utils';
 import { EDITORS_OPEN_MAP } from './editor-info/mac';
+import {
+  getJetBrainsWorkspace,
+  isJetBrainsEditor,
+  usesJetBrainsNewCli,
+} from './jetbrains';
 
 function isTerminalEditor(editor: string) {
   switch (editor) {
@@ -87,6 +92,38 @@ function getOpenWindowParams(ideOpenMethod?: IDEOpenMethod) {
   }
 }
 
+function spawnEditor(editor: string, args: string[]) {
+  const env = {
+    ...process.env,
+    NODE_OPTIONS: '',
+  };
+
+  if (process.platform === 'win32') {
+    // These two funcs are from launch-editor and handle shell metacharacters.
+    const escapeCmdArgs = (cmdArg: string) =>
+      cmdArg.replace(/([&|<>,;=^])/g, '^$1');
+    const doubleQuoteIfNeeded = (value: string) => {
+      if (value.includes('^')) return `^"${value}^"`;
+      if (value.includes(' ')) return `"${value}"`;
+      return value;
+    };
+    const launchCommand = [editor, ...args.map(escapeCmdArgs)]
+      .map(doubleQuoteIfNeeded)
+      .join(' ');
+
+    return child_process.exec(launchCommand, {
+      // @ts-ignore
+      shell: true,
+      env,
+    });
+  }
+
+  return child_process.spawn(editor, args, {
+    stdio: 'ignore',
+    env,
+  });
+}
+
 interface LaunchIDEParams {
   file: string;
   line?: number;
@@ -118,6 +155,8 @@ export function launchIDE(params: LaunchIDEParams) {
   }
 
   let [editor, ...args] = guessEditor(_editor, rootDir, usePid);
+  const initialArgs = args.filter((arg): arg is string => arg !== null);
+  let fallbackArgs: string[] | null = null;
 
   // 获取 path format
   const pathFormat = getEnvFormatPath(rootDir || '') || format;
@@ -141,6 +180,7 @@ export function launchIDE(params: LaunchIDEParams) {
     }
     return;
   }
+  const editorCommand = editor;
 
   const editorBasename = getEditorBasenameByProcessName(
     editor,
@@ -177,8 +217,28 @@ export function launchIDE(params: LaunchIDEParams) {
       file = path.relative('', file);
     }
 
-    let workspace = null;
+    const useJetBrainsNewCli = usesJetBrainsNewCli(editor);
+    let workspace = useJetBrainsNewCli
+      ? getJetBrainsWorkspace(file, rootDir)
+      : null;
+    if (
+      workspace &&
+      process.platform === 'linux' &&
+      workspace.startsWith('/mnt/') &&
+      /Microsoft/i.test(os.release())
+    ) {
+      workspace = path.relative('', workspace);
+    }
     if (line) {
+      if (isJetBrainsEditor(editorBasename)) {
+        fallbackArgs = initialArgs.concat([
+          file,
+          '--line',
+          String(line),
+          '--column',
+          String(column),
+        ]);
+      }
       args = args.concat(
         getArguments({
           editorBasename,
@@ -201,64 +261,50 @@ export function launchIDE(params: LaunchIDEParams) {
       _childProcess.kill('SIGKILL');
     }
 
-    if (process.platform === 'win32') {
-      // this two funcs according to launch-editor
-      // compatible for some special characters
-      const escapeCmdArgs = (cmdArgs: string | null) => {
-        return cmdArgs!.replace(/([&|<>,;=^])/g, '^$1');
-      };
-      const doubleQuoteIfNeeded = (str: string | null) => {
-        if (str!.includes('^')) {
-          return `^"${str}^"`;
-        } else if (str!.includes(' ')) {
-          return `"${str}"`;
-        }
-        return str;
-      };
-
-      const launchCommand = [editor, ...args.map(escapeCmdArgs)]
-        .map(doubleQuoteIfNeeded)
-        .join(' ');
-
-      _childProcess = child_process.exec(launchCommand, {
-        stdio: 'ignore',
-        // @ts-ignore
-        shell: true,
-        env: {
-          ...process.env,
-          NODE_OPTIONS: '',
-        },
-      });
-    } else {
-      _childProcess = child_process.spawn(editor, args as string[], {
-        stdio: 'ignore',
-        env: {
-          ...process.env,
-          NODE_OPTIONS: '',
-        },
-      });
-    }
+    _childProcess = spawnEditor(editor, args as string[]);
   }
 
-  _childProcess.on('exit', function (errorCode: string) {
-    _childProcess = null;
-
-    if (errorCode) {
-      if (typeof onError === 'function') {
-        onError(file, '(code ' + errorCode + ')');
-      } else {
-        printInstructions(file, '(code ' + errorCode + ')');
-      }
-    }
-  });
-
-  _childProcess.on('error', function (error: { message: any }) {
+  const reportError = (errorMessage: string) => {
     if (typeof onError === 'function') {
-      onError(file, error.message);
+      onError(file, errorMessage);
     } else {
-      printInstructions(file, error.message);
+      printInstructions(file, errorMessage);
     }
-  });
+  };
+
+  const watchChildProcess = (childProcess: any) => {
+    let settled = false;
+
+    const handleFailure = (errorMessage: string) => {
+      if (settled) return;
+      settled = true;
+
+      if (fallbackArgs) {
+        const retryArgs = fallbackArgs;
+        fallbackArgs = null;
+        _childProcess = spawnEditor(editorCommand, retryArgs);
+        watchChildProcess(_childProcess);
+        return;
+      }
+
+      reportError(errorMessage);
+    };
+
+    childProcess.on('exit', function (errorCode: string | number | null) {
+      if (_childProcess === childProcess) _childProcess = null;
+      if (errorCode) {
+        handleFailure('(code ' + errorCode + ')');
+      } else {
+        settled = true;
+      }
+    });
+
+    childProcess.on('error', function (error: { message: string }) {
+      handleFailure(error.message);
+    });
+  };
+
+  watchChildProcess(_childProcess);
 }
 
 export * from './type';
