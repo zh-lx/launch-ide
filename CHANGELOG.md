@@ -1,3 +1,7 @@
+## 1.4.6 2026-10-14
+
+- 🐛: Compatible for jetbrains editor whose version is greater than `2026.2` [#49](https://github.com/zh-lx/launch-ide/pull/49)
+
 ## 1.4.5 2026-07-06
 
 - 🐛: Resolve the issue that zed can't open the file [#48](https://github.com/zh-lx/launch-ide/pull/48)
