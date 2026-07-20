@@ -55,7 +55,11 @@ export function getArguments(params: {
     openWindowParams,
     pathFormat,
   } = params;
-  const _params = { editorBasename, openWindowParams, workspace };
+  const _params = {
+    editorBasename,
+    openWindowParams,
+    workspace,
+  };
 
   const format = getFormatByEditor(_params) || DefaultPathFormat;
 
@@ -158,6 +162,8 @@ function getFormatByEditor(params: GetEditorFormatParams) {
         ...(workspace ? [workspace] : []),
         '--line',
         FormatLine,
+        '--column',
+        FormatColumn,
         FormatFile,
       ];
     case 'zed':
