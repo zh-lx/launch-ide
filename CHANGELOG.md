@@ -1,3 +1,11 @@
+## 1.4.7 2026-07-24
+
+- 🎉: Improve JetBrains workspace detection with git [#50](https://github.com/zh-lx/launch-ide/pull/50)
+
+## 1.4.6 2026-07-20
+
+- 🎉: Support JetBrains IDE `2026.2+` [#49](https://github.com/zh-lx/launch-ide/pull/49)
+
 ## 1.4.5 2026-07-06
 
 - 🐛: Resolve the issue that zed can't open the file [#48](https://github.com/zh-lx/launch-ide/pull/48)
