@@ -1,6 +1,6 @@
-## 1.4.7 2026-07-24
+## 1.4.8 2026-07-24
 
-- 🎉: Improve JetBrains workspace detection with git [#50](https://github.com/zh-lx/launch-ide/pull/50)
+- 🐛: Improve JetBrains workspace detection with git [#50](https://github.com/zh-lx/launch-ide/pull/50)
 
 ## 1.4.6 2026-07-20
 
