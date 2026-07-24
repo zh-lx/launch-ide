@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 
 interface JetBrainsProductInfo {
   version?: string;
@@ -32,14 +33,25 @@ export function isJetBrainsEditor(editorBasename: string): boolean {
   return jetBrainsEditors.has(editorBasename);
 }
 
-export function getJetBrainsWorkspace(
-  file: string,
-  rootDir?: string,
-): string {
+function getProjectRoot(): string {
+  try {
+    return execSync('git rev-parse --show-toplevel', {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    }).trim();
+  } catch {
+    return '';
+  }
+}
+
+export function getJetBrainsWorkspace(file: string, rootDir?: string): string {
   if (rootDir) {
     const resolvedRootDir = path.resolve(rootDir);
     if (fs.existsSync(resolvedRootDir)) return resolvedRootDir;
   }
+
+  const projectRoot = getProjectRoot();
+  if (projectRoot) return projectRoot;
 
   const ancestors: string[] = [];
   let directory = path.dirname(path.resolve(file));
