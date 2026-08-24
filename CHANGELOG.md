@@ -1,3 +1,7 @@
+## 1.4.9 2026-08-24
+
+- 🎉: Add separate `workspace` parameter [#51](https://github.com/zh-lx/launch-ide/pull/51)
+
 ## 1.4.8 2026-07-24
 
 - 🐛: Improve JetBrains workspace detection with git [#50](https://github.com/zh-lx/launch-ide/pull/50)
