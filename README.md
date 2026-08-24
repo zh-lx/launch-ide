@@ -95,6 +95,20 @@ interface LaunchIDEParams {
   /**
    * @optional
    * @type: string
+   * @description: the project directory used to find the .env.local file and environment variables
+   */
+  rootDir?: string;
+
+  /**
+   * @optional
+   * @type: string
+   * @description: the workspace directory to open in the editor
+   */
+  workspace?: string;
+
+  /**
+   * @optional
+   * @type: string
    * @description: Whether to guess the editor by the process id. When you use pid, the accuracy of the editor is higher, but the performance is lower.
    * @default false
    */
