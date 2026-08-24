@@ -44,10 +44,10 @@ function getProjectRoot(): string {
   }
 }
 
-export function getJetBrainsWorkspace(file: string, rootDir?: string): string {
-  if (rootDir) {
-    const resolvedRootDir = path.resolve(rootDir);
-    if (fs.existsSync(resolvedRootDir)) return resolvedRootDir;
+export function getJetBrainsWorkspace(file: string, workspace?: string): string {
+  if (workspace) {
+    const resolvedWorkspace = path.resolve(workspace);
+    if (fs.existsSync(resolvedWorkspace)) return resolvedWorkspace;
   }
 
   const projectRoot = getProjectRoot();

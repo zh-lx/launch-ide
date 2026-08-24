@@ -133,6 +133,7 @@ interface LaunchIDEParams {
   format?: string | string[];
   onError?: (file: string, error: string) => void;
   rootDir?: string;
+  workspace?: string;
   usePid?: boolean;
   type?: LaunchType;
 }
@@ -147,6 +148,7 @@ export function launchIDE(params: LaunchIDEParams) {
     format,
     onError,
     rootDir,
+    workspace: workspacePath,
     usePid,
     type = 'exec',
   } = params;
@@ -218,9 +220,8 @@ export function launchIDE(params: LaunchIDEParams) {
     }
 
     const useJetBrainsNewCli = usesJetBrainsNewCli(editor);
-    let workspace = useJetBrainsNewCli
-      ? getJetBrainsWorkspace(file, rootDir)
-      : null;
+    let workspace =
+      workspacePath || (useJetBrainsNewCli ? getJetBrainsWorkspace(file) : null);
     if (
       workspace &&
       process.platform === 'linux' &&

@@ -8,6 +8,7 @@ interface LaunchIDEParams {
     format?: string | string[];
     onError?: (file: string, error: string) => void;
     rootDir?: string;
+    workspace?: string;
     usePid?: boolean;
     type?: LaunchType;
 }
