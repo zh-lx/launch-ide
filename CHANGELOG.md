@@ -1,3 +1,7 @@
+## 1.4.10 2026-09-11
+
+- 🐛: Support new Qoder process names [#53](https://github.com/zh-lx/launch-ide/pull/53)
+
 ## 1.4.9 2026-08-24
 
 - 🎉: Add separate `workspace` parameter [#51](https://github.com/zh-lx/launch-ide/pull/51)
