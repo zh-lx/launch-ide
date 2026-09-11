@@ -9,7 +9,7 @@ export const EDITOR_PROCESS_MAP_WIN: EDITOR_PROCESS_MAP = {
   devin: ['Devin.exe'],
   trae: ['Trae.exe', 'Trae CN.exe'],
   comate: ['comate.exe'],
-  qoder: ['Qoder.exe', 'Qoder CN.exe'],
+  qoder: ['Qoder CN IDE.exe', 'Qoder IDE.exe', 'Qoder.exe', 'Qoder CN.exe'],
   codebuddy: ['CodeBuddy.exe', 'CodeBuddy CN.exe'],
   code: ['Code.exe'],
   'code-insiders': ['Code - Insiders.exe'],

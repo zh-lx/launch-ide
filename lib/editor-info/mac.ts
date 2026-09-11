@@ -8,6 +8,8 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
     '/Comate.app/Contents/MacOS/Comate',
   ],
   qoder: [
+    '/Applications/Qoder IDE.app/Contents/MacOS/Qoder',
+    '/Applications/Qoder CN IDE.app/Contents/MacOS/Qoder CN',
     '/Qoder.app/Contents/MacOS/Electron',
     '/Qoder CN.app/Contents/MacOS/Electron',
     '/Qoder.app/Contents/MacOS/Qoder',
