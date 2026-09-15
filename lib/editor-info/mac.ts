@@ -45,6 +45,7 @@ export const EDITOR_PROCESS_MAP_OSX: EDITOR_PROCESS_MAP = {
   ],
   'code-insiders': [
     '/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
+    '/Visual Studio Code - Insiders.app/Contents/MacOS/Code - Insiders',
   ],
   webstorm: ['/WebStorm.app/Contents/MacOS/webstorm'],
   atom: [
